@@ -83,11 +83,84 @@ const removeAddress = async(req,res)=>{
 const orderHistory = async(req,res)=>{
     const userId = req.session.userId;
     const brands = await Brand.find({});
-    const orderHistory = await Checkout.find({userId})
-    console.log(orderHistory)
+    const orderHistory = await Checkout.find({userId:userId})
     const cartCount = await Cart.aggregate([{$match:{userId}},{$project:{count:{$size:"$cartItems"}}}]);
     const wishlistCount = await Wishlist.aggregate([{$match:{userId}},{$project:{count:{$size:"$wishlistItems"}}}]);
-    res.render('order_history',{cartCount,wishlistCount,brands,orderHistory})
+    let productDetails = await Checkout.aggregate([{ $match: {userId:userId } },
+        { $unwind: '$cartItems' },
+        {
+            $project:
+            {
+                item: '$cartItems.productId',
+                itemQuantity: '$cartItems.quantity',
+                variant: '$cartItems.variant'
+            }
+        },
+        {
+            $lookup:
+            {
+                from: process.env.PRODUCT_COLLECTION,
+                localField: 'item',
+                foreignField: '_id',
+                as: 'product'
+            }
+        }])
+        // console.log(productDetails)
+    res.render('order_history',{cartCount,wishlistCount,brands,orderHistory,productDetails})
+}
+
+
+// const orderedProducts = async (req, res) => {
+//     try {
+//         const carId = req.params
+//         const cartId = mongoose.Types.ObjectId(carId)
+//         const cartList = await Checkout.aggregate([{ $match: { _id: cartId } }, { $unwind: '$cartItems' },
+//         { $project: { item: '$cartItems.productId', itemQuantity: '$cartItems.quantity', variant: '$cartItems.variant' } },
+//         { $lookup: { from: process.env.PRODUCT_COLLECTION, localField: 'item', foreignField: '_id', as: 'product' } }]);
+//         console.log(cartList)
+//         res.render('ordered_product', { cartList })
+//     } catch (err) {
+//         console.log(err)
+//     }
+// }
+
+
+const orderedProducts = async(req,res)=>{
+    const userId = req.session.userId;
+    let {id} =req.query;
+    id = mongoose.Types.ObjectId(id)
+    // const checkoutId = mongoose.Types.ObjectId(req.params.id.trim());
+    console.log("hi",id)
+    
+    const brands = await Brand.find({});
+    const cartCount = await Cart.aggregate([{$match:{userId}},{$project:{count:{$size:"$cartItems"}}}]);
+    const wishlistCount = await Wishlist.aggregate([{$match:{userId}},{$project:{count:{$size:"$wishlistItems"}}}]);
+    try{
+    let productDetails = await Checkout.aggregate([{ $match: {_id:id } },
+        { $unwind: '$cartItems' },
+        {
+            $project:
+            {
+                item: '$cartItems.productId',
+                itemQuantity: '$cartItems.quantity',
+                variant: '$cartItems.variant'
+            }
+        },
+        {
+            $lookup:
+            {
+                from: process.env.PRODUCT_COLLECTION,
+                localField: 'item',
+                foreignField: '_id',
+                as: 'product'
+            }
+        }])
+        console.log(productDetails)
+        res.render('ordered_product',{productDetails})
+    }
+    catch(err){
+        console.log(err)
+    }
 }
 
 const sessionCheck = (req,res,next) => {
@@ -108,4 +181,4 @@ const logout = (req,res)=> {
 
 
 
-module.exports = {registerLoad,insertDetails,loginLoad,loginCheck,loadProfile,addingAddress,removeAddress,orderHistory,sessionCheck,logout};
+module.exports = {registerLoad,insertDetails,loginLoad,loginCheck,loadProfile,addingAddress,removeAddress,orderHistory,orderedProducts,sessionCheck,logout};

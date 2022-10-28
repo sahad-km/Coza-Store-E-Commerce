@@ -149,7 +149,7 @@
                                             </p>
                                             <p>₹<%= p2.selling_price * p.itemQuantity %>.00</p>
                                             <% total +=p2.selling_price * p.itemQuantity %>
-                                                <input type="hidden" name="cartId" value="<%=p._id%>">
+                                                <input id="val" type="hidden" name="cartId" value="<%=p._id%>">
                                         </div>
                                         <hr>
                                         <% }) %>
@@ -366,13 +366,15 @@
             }
 
             function paymentSuccess(payment, payDetails, userDetails, orderId) {
+                let cartId = $("#val").val();
                 $.ajax({
                     url: '/users/verify-payment',
                     data: {
                         payment,
                         payDetails,
                         userDetails,
-                        orderId
+                        orderId,
+                        cartId
                     },
                     method: 'post',
                     success: (response) => {

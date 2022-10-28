@@ -40,6 +40,7 @@ router.post('/place-order',paymentController.placeOrder);
 router.post('/verify-payment',paymentController.verifyPayment);
 //--------------------------------------------------//
 router.get('/orderhistory',userController.orderHistory);
+router.get('/ordered-products',userController.orderedProducts)
 
 
 module.exports = router;

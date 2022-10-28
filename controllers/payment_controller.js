@@ -63,6 +63,7 @@ const placeOrder = async (req, res) => {
 
 
 const verifyPayment = async (req,res) => {
+  let cartId = req.body.cartId;
   const details = req.body
   // console.log('details:',details)
   let hmac = crypto.createHmac('sha256',process.env.KEY_SECRET)
@@ -71,7 +72,8 @@ const verifyPayment = async (req,res) => {
   if(hmac==details.payment.razorpay_signature){
     const id = mongoose.Types.ObjectId(details.payDetails.receipt)
   await CheckOut.findByIdAndUpdate(id,{isCompleted:true});
-    console.log('its same')
+    console.log('its same');
+  await Cart.deleteOne({_id:cartId})
     res.send({ paymentOk: true,id:details.payDetails.receipt})
   }
   // else{

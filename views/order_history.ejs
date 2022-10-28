@@ -2,163 +2,166 @@
 <html lang="en">
 
 <head>
-    <title>Your Cart</title>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!--===============================================================================================-->
-    <link rel="icon" type="image/png" href="../images/icons/favicon.png" />
-    <!--===============================================================================================-->
-    <link rel="stylesheet" type="text/css" href="../vendor/bootstrap/css/bootstrap.min.css">
-    <!--=========================================================================================-->
-    <link rel="stylesheet" type="text/css" href="../fonts/font-awesome-4.7.0/css/font-awesome.min.css">
-    <!--=========================================================================================-->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order History</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.12.1/css/dataTables.bootstrap4.min.css">
     <link rel="stylesheet" type="text/css" href="../fonts/iconic/css/material-design-iconic-font.min.css">
-    <!--============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="../vendor/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="../fonts/linearicons-v1.0.0/icon-font.min.css">
-    <!--============================================================================================-->
     <link rel="stylesheet" type="text/css" href="../vendor/animate/animate.css">
-    <!--============================================================================================-->
     <link rel="stylesheet" type="text/css" href="../vendor/css-hamburgers/hamburgers.min.css">
-    <!--============================================================================================-->
     <link rel="stylesheet" type="text/css" href="../vendor/animsition/css/animsition.min.css">
-    <!--============================================================================================-->
     <link rel="stylesheet" type="text/css" href="../vendor/select2/select2.min.css">
-    <!--============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="../vendor/daterangepicker/daterangepicker.css">
+    <link rel="stylesheet" type="text/css" href="../vendor/slick/slick.css">
+    <link rel="stylesheet" type="text/css" href="../vendor/MagnificPopup/magnific-popup.css">
     <link rel="stylesheet" type="text/css" href="../vendor/perfect-scrollbar/perfect-scrollbar.css">
-    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="../fonts/font-awesome-4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" type="text/css" href="../stylesheets/util.css">
     <link rel="stylesheet" type="text/css" href="../stylesheets/main.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.2.0/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.12.1/css/dataTables.bootstrap5.min.css">
-<script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js" ></script>
-<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
-<script src="https://cdn.datatables.net/1.12.1/js/dataTables.bootstrap5.min.js"></script>
-    <!--===============================================================================================-->
-    <style>
-        a {
-            color: inherit;
-            text-decoration: inherit
-        }
-    </style>
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.12.1/js/dataTables.bootstrap4.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script>
+        $(document).ready(function () {
+            $('#example').DataTable();
+        });
+    </script>
 </head>
 
-<body class="animsition">
-    <%- include('./partials/navbar') %>
-
-<div style="margin-top: 10em;" >
-    <table id="example" class="table table-striped" style="width:100%">
-        <thead>
-            <tr>
-                <th>Order Id</th>
-                <th>Payment Method</th>
-                <th>Payment Status</th>
-                <th>Address</th>
-                <th>Order Status</th>
-                <th>Amount Paid</th>
-                <th>Date</th>
-                <th>Products</th>
-            </tr>
-        </thead>
-        <tbody>
-
-            <tr>
-                <td>OrderId</td>
-                <td>System Architect</td>
-                <td>Edinburgh</td>
-                <td>61</td>
-                <td>2011-04-25</td>
-                <td>$320,800</td>
-            </tr>
-            <tr>
-                <td>Garrett Winters</td>
-                <td>Accountant</td>
-                <td>Tokyo</td>
-                <td>63</td>
-                <td>2011-07-25</td>
-                <td>$170,750</td>
-            </tr>
-            <tr>
-                <td>Ashton Cox</td>
-                <td>Junior Technical Author</td>
-                <td>San Francisco</td>
-                <td>66</td>
-                <td>2009-01-12</td>
-                <td>$86,000</td>
-            </tr>
-            <tr>
-                <td>Donna Snider</td>
-                <td>Customer Support</td>
-                <td>New York</td>
-                <td>27</td>
-                <td>2011-01-25</td>
-                <td>$112,000</td>
-            </tr>
-        </tbody>
-        <tfoot>
-            <tr>
-                <th>Name</th>
-                <th>Position</th>
-                <th>Office</th>
-                <th>Age</th>
-                <th>Start date</th>
-                <th>Salary</th>
-            </tr>
-        </tfoot>
-    </table>
-</div>
-
-
-    <%- include('./partials/footer') %>
-
-<script>
-    $(document).ready(function () {
-    $('#example').DataTable();
-});
-</script>
-        <!-- Back to top -->
-        <div class="btn-back-to-top" id="myBtn">
-            <span class="symbol-btn-back-to-top">
-                <i class="zmdi zmdi-chevron-up"></i>
-            </span>
+<body>
+    <div class="container-fluid">
+        <div class="p-b-45">
+            <h3 class="ltext-106 cl5 txt-center" style="margin-top: 3em;">
+                Your Order History
+            </h3>
         </div>
-        <!--===============================================================================================-->
-        <script src="../vendor/jquery/jquery-3.2.1.min.js"></script>
-        <!--===============================================================================================-->
-        <script src="../vendor/animsition/js/animsition.min.js"></script>
-        <!--===============================================================================================-->
-        <script src="../vendor/bootstrap/js/popper.js"></script>
-        <script src="../vendor/bootstrap/js/bootstrap.min.js"></script>
-        <!--===============================================================================================-->
-        <script src="../vendor/select2/select2.min.js"></script>
+        <div class="row">
+            <table id="example" class="table table-striped table-bordered" style="width:100%">
+                <thead>
+                    <tr>
+                        <th>SI No</th>
+                        <th>Order ID</th>
+                        <th>Payment Method</th>
+                        <th>Payment Status</th>
+                        <th>Products</th>
+                        <th>Order Status</th>
+                        <th>Bill</th>
+                        <th>Date</th>
+                        <th>Products</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% let count=1 %>
+                        <% orderHistory.forEach((p)=>{%>
+                            <tr>
+                                <td>
+                                    <%=count%>
+                                </td>
+                                <td>#_<%=p._id%>
+                                </td>
+                                <td>
+                                    <%=p.paymentStatus%>
+                                </td>
+                                <% if(p.isCompleted==true) {%>
+                                    <td>Completed</td>
+                                    <% }else{%>
+                                        <td>Pending</td>
+                                        <% } %>
+                                            <td>
+                                                <%=p.address%>
+                                            </td>
+                                            <td>
+                                                <%=p.orderStatus[0].type%>
+                                            </td>
+                                            <td>
+                                                <%=p.bill%>
+                                            </td>
+                                            <td>
+                                                <%=p.createdAt%>
+                                            </td>
+                                            <td><a href="/users/ordered-products?id=<%=p._id%>"><button
+                                                        class="btn btn-success">Products</button></a></td>
+                            </tr>
+                            <% count++ }) %>
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <th>SI No</th>
+                        <th>Order ID</th>
+                        <th>Payment Method</th>
+                        <th>Payment Status</th>
+                        <th>Products</th>
+                        <th>Order Status</th>
+                        <th>Bill</th>
+                        <th>Date</th>
+                        <th>Products</th>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+    </div>
 
-        <script>
-            $(".js-select2").each(function () {
-                $(this).select2({
-                    minimumResultsForSearch: 20,
-                    dropdownParent: $(this).next('.dropDownSelect2')
-                });
-            })
-        </script>
-        <script src="../vendor/MagnificPopup/jquery.magnific-popup.min.js"></script>
-
-        <script src="../vendor/perfect-scrollbar/perfect-scrollbar.min.js"></script>
-        <script>
-            $('.js-pscroll').each(function () {
-                $(this).css('position', 'relative');
-                $(this).css('overflow', 'hidden');
-                var ps = new PerfectScrollbar(this, {
-                    wheelSpeed: 1,
-                    scrollingThreshold: 1000,
-                    wheelPropagation: false,
-                });
-
-                $(window).on('resize', function () {
-                    ps.update();
-                })
+    <div class="btn-back-to-top" id="myBtn">
+        <span class="symbol-btn-back-to-top">
+            <i class="zmdi zmdi-chevron-up"></i>
+        </span>
+    </div>
+    <script src="../vendor/perfect-scrollbar/perfect-scrollbar.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+    <script>
+        $('.js-pscroll').each(function () {
+            $(this).css('position', 'relative');
+            $(this).css('overflow', 'hidden');
+            var ps = new PerfectScrollbar(this, {
+                wheelSpeed: 1,
+                scrollingThreshold: 1000,
+                wheelPropagation: false,
             });
-        </script>
-        <!--===============================================================================================-->
-        <script src="../js/main.js"></script>
+
+            $(window).on('resize', function () {
+                ps.update();
+            })
+        });
+    </script>
+
+    <script>
+        $(document).ready(function () {
+            // Add smooth scrolling to all links
+            $("a").on('click', function (event) {
+
+                if (this.hash !== "") {
+                    // Prevent default anchor click behavior
+                    event.preventDefault();
+
+                    var hash = this.hash;
+
+                    $('html, body').animate({
+                        scrollTop: $(hash).offset().top
+                    }, 800, function () {
+
+                        // Add hash (#) to URL when done scrolling (default click behavior)
+                        window.location.hash = hash;
+                    });
+                }
+            });
+        });
+    </script>
+    <script src="../js/main.js"></script>
+
 
 </body>
 
