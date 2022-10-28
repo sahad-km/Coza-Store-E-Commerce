@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Checkout</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!--===============================================================================================-->
+    <link rel="icon" type="image/png" href="/images/icons/favicon.png" />
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="/vendor/bootstrap/css/bootstrap.min.css">
+    <!--=========================================================================================-->
+    <link rel="stylesheet" type="text/css" href="/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+    <!--=========================================================================================-->
+    <link rel="stylesheet" type="text/css" href="/fonts/iconic/css/material-design-iconic-font.min.css">
+    <!--============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="/fonts/linearicons-v1.0.0/icon-font.min.css">
+    <!--============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="/vendor/animate/animate.css">
+    <!--============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="/vendor/css-hamburgers/hamburgers.min.css">
+    <!--============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="/vendor/animsition/css/animsition.min.css">
+    <!--============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="/vendor/select2/select2.min.css">
+    <!--============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="/vendor/perfect-scrollbar/perfect-scrollbar.css">
+
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+
+    <!-- Libraries Stylesheet -->
+    <link href="/checkout/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="/checkout/css/style.css" rel="stylesheet">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="/stylesheets/util.css">
+    <link rel="stylesheet" type="text/css" href="/stylesheets/main.css">
+    <!--===============================================================================================-->
+    <style>
+        a {
+            color: inherit;
+            text-decoration: inherit
+        }
+    </style>
+</head>
+
+<body class="animsition">
+
+    <!-- Header -->
+    <div class="p-b-45">
+        <h3 class="ltext-106 cl5 txt-center mt-5">
+            Checkout Page
+        </h3>
+    </div>
+
+    <!-- breadcrumb -->
+    <div class="container">
+        <div class="bread-crumb flex-w p-l-25 p-r-15 p-t-30 p-lr-0-lg">
+            <a href="/pages/home" class="stext-109 cl8 hov-cl1 trans-04">
+                Home
+                <i class="fa fa-angle-right m-l-9 m-r-10" aria-hidden="true"></i>
+            </a>
+
+            <span class="stext-109 cl4">
+                Cart
+                <i class="fa fa-angle-right m-l-9 m-r-10" aria-hidden="true"></i>
+            </span>
+            <span class="stext-109 cl4">
+                Checkout
+            </span>
+        </div>
+    </div>
+
+
+    <!-- Shoping Cart -->
+    <form action="" id="checkout-form">
+        <div class="container-fluid pt-5">
+            <div class="row px-xl-5">
+                <div class="col-lg-8">
+                    <div class="mb-4">
+                        <h4 class="font-weight-semi-bold mb-4">Billing Address</h4>
+                        <% user.address.forEach((p2)=>{ %>
+                            <div class="row">
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <div class="input-group-text">
+                                            <input name="address" type="radio" data-toggle="collapse"
+                                                aria-label="Radio button for following text input"
+                                                value="Name:<%=p2.fullName%>,<%=p2.houseName%>,<%=p2.city%>,<%=p2.state%>,<%=p2.country%>,<%=p2.pincode%>,Mobile Number:<%=p2.mobNumber%>,E-Mail:<%=p2.email%>"
+                                                required>
+                                        </div>
+                                    </div>
+                                    <input readonly class="form-control"
+                                        value="Name:<%=p2.fullName%>,<%=p2.houseName%>,<%=p2.city%>,<%=p2.state%>,<%=p2.country%>,<%=p2.pincode%>,Mobile Number:<%=p2.mobNumber%>,E-Mail:<%=p2.email%>"
+                                        aria-label="Text input with radio button">
+                                </div>
+                            </div>
+                            <% }) %>
+                    </div>
+                    <!-- ///////////////////////////////////////////////////////////// -->
+                    <!-- Button trigger modal -->
+                    <button type="button"
+                        class="flex-c-m stext-101 cl0 size-116 bg3 bor14 hov-btn3 p-lr-15 trans-04 pointer"
+                        data-toggle="modal" data-target="#exampleModal">
+                        + Add New Address
+                    </button>
+
+                    <!-- Modal -->
+
+                    <!-- ///////////////////////////////////////////////////////////// -->
+                </div>
+
+                <div class="col-lg-4">
+                    <div class="card border-secondary mb-5">
+                        <div class="card-header bg-secondary border-0">
+                            <h4 class="font-weight-semi-bold m-0">Order Total</h4>
+                        </div>
+                        <div class="card-body">
+                            <h5 class="font-weight-medium mb-3">Products</h5>
+                            <% let total=0 %>
+                                <% cartDetails.forEach((p)=>{ %>
+                                    <% p.product.forEach((p2)=>{ %>
+
+                                        <div class="d-flex justify-content-between">
+                                            <p style="width: 80px;">
+                                                <%= p2.product_name %>
+                                            </p>
+                                            <p>
+                                                <% if(p.variant=='stock1' ){%>
+                                                    ₹<%=p2.selling_price%>.00
+                                                        <% }else if(p.variant=='stock2' ) {%>
+                                                            ₹<%=p2.selling_price + (p2.selling_price*10)/100%>.00
+                                                                <% }else if(p.variant=='stock3' ){%>
+                                                                    ₹<%=p2.selling_price+(p2.selling_price*12) /100%>.00
+                                                                        <% }else if(p.variant=='stock4' ){%>
+                                                                            ₹<%=p2.selling_price+(p2.selling_price*15)
+                                                                                /100%>.00
+                                                                                <% }else{ %>
+                                                                                    ₹
+                                                                                    <%=p2.selling_price+(p2.selling_price*18)
+                                                                                        /100%>.00
+                                                                                        <% } %>X<%= p.itemQuantity %>
+                                            </p>
+                                            <p>₹<%= p2.selling_price * p.itemQuantity %>.00</p>
+                                            <% total +=p2.selling_price * p.itemQuantity %>
+                                                <input type="hidden" name="cartId" value="<%=p._id%>">
+                                        </div>
+                                        <hr>
+                                        <% }) %>
+                                            <% }) %>
+                                                <hr class="mt-0">
+                                                <div class="d-flex justify-content-between mb-3 pt-1">
+                                                    <h6 class="font-weight-medium">Subtotal</h6>
+                                                    <h6 class="font-weight-medium">₹<%=total%>.00</h6>
+                                                </div>
+                                                <div class="d-flex justify-content-between">
+                                                    <h6 class="font-weight-medium">Shipping</h6>
+                                                    <% if(total>49999){%>
+                                                        <h6 style="color: rgb(13, 173, 13);" class="font-weight-medium">
+                                                            Free
+                                                        </h6>
+                                                        <% }else{ %>
+                                                            <h6 class="font-weight-medium">+ ₹40.00</h6>
+                                                            <% } %>
+                                                </div>
+                        </div>
+                        <div class="card-footer border-secondary bg-transparent">
+                            <div class="d-flex justify-content-between mt-2">
+                                <h5 class="font-weight-bold">Total</h5>
+                                <% if(total>49999){%>
+                                    <h5 class="font-weight-bold">₹ <%=total%>.00</h5>
+                                    <input type="hidden" name="totalAmount" value="<%=total%>">
+                                    <% }else{ %>
+                                        <h5 class="font-weight-bold">₹ <%=total+40%>.00</h5>
+                                        <input type="hidden" name="totalAmount" value="<%=total+40%>">
+                                        <% } %>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card border-secondary mb-5">
+                        <div class="card-header bg-secondary border-0">
+                            <h4 class="font-weight-semi-bold m-0">Payment</h4>
+                        </div>
+                        <div class="card-body">
+                            <div class="form-group">
+                                <div class="custom-control custom-radio">
+                                    <input type="radio" class="custom-control-input" id="cod" name="payment" value="cod"
+                                        required>
+                                    <label class="custom-control-label" for="cod">COD</label>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="custom-control custom-radio">
+                                    <input type="radio" class="custom-control-input" id="razorpay" name="payment"
+                                        value="razorpay">
+                                    <label class="custom-control-label" for="razorpay">Razor Pay</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-footer border-secondary bg-transparent">
+                            <button type="submit"
+                                class="flex-c-m stext-101 cl0 size-116 bg3 bor14 hov-btn3 p-lr-15 trans-04 pointer">
+                                PLACE ORDER NOW
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="font-weight-semi-bold mb-4">Billing Address</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form action="/users/addToProfile" method="post">
+                        <div class="col-md-12 form-group">
+                            <label>Full Name</label>
+                            <input class="form-control" name="fullName" type="text" placeholder="John">
+                        </div>
+                        <div class="col-md-12 form-group">
+                            <label>E-mail</label>
+                            <input class="form-control" name="email" type="text" placeholder="example@email.com">
+                        </div>
+                        <div class="col-md-12 form-group">
+                            <label>Mobile No</label>
+                            <input class="form-control" name="mobNumber" type="text" placeholder="+123 456 789">
+                        </div>
+                        <div class="col-md-12 form-group">
+                            <label>Address Line </label>
+                            <input class="form-control" type="text" name="houseName" placeholder="123 Street">
+                        </div>
+                        <div class="col-md-12 form-group">
+                            <label>City</label>
+                            <input class="form-control" type="text" name="city" placeholder="New York">
+                        </div>
+                        <div class="col-md-12 form-group">
+                            <label for="inputState">State</label>
+                            <select name="state" id="inputState" required class="form-control">
+                                <option selected>Choose...</option>
+                                <option value="Kerala">Kerala</option>
+                                <option value="TamilNadu">TamilNadu</option>
+                            </select>
+                        </div>
+                        <div class="col-md-12 form-group">
+                            <label>PIN Code</label>
+                            <input class="form-control" name="pincode" type="text" placeholder="123">
+                        </div>
+                        <div class="col-md-12 form-group">
+                            <label>Country</label>
+                            <select name="country" class="custom-select">
+                                <option value="India" selected>India</option>
+                                <option value="United Arab Emirates">United Arab Emirates</option>
+                                <option value="United Kingdom">United Kingdom</option>
+                                <option value="United States">United States</option>
+                            </select>
+                        </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button"
+                        class="flex-c-m stext-101 cl0 size-116 bg3 bor14 hov-btn3 p-lr-15 trans-04 pointer"
+                        data-dismiss="modal">Close</button>
+                    <button type="submit"
+                        class="flex-c-m stext-101 cl0 size-116 bg3 bor14 hov-btn3 p-lr-15 trans-04 pointer">+
+                        Add Address</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Footer -->
+    <%- include('./partials/footer') %>
+
+
+        <!-- Back to top -->
+        <div class="btn-back-to-top" id="myBtn">
+            <span class="symbol-btn-back-to-top">
+                <i class="zmdi zmdi-chevron-up"></i>
+            </span>
+        </div>
+
+        <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+        <!--===============================================================================================-->
+        <script src="/vendor/jquery/jquery-3.2.1.min.js"></script>
+        <!--===============================================================================================-->
+        <script src="/vendor/animsition/js/animsition.min.js"></script>
+        <!--===============================================================================================-->
+        <script src="/vendor/bootstrap/js/popper.js"></script>
+        <script src="/vendor/bootstrap/js/bootstrap.min.js"></script>
+        <!--===============================================================================================-->
+        <script src="/vendor/select2/select2.min.js"></script>
+
+        <script>
+            $(".js-select2").each(function () {
+                $(this).select2({
+                    minimumResultsForSearch: 20,
+                    dropdownParent: $(this).next('.dropDownSelect2')
+                });
+            })
+        </script>
+        <script>
+            $("#checkout-form").submit((e) => {
+                e.preventDefault()
+                $.ajax({
+                    url: '/users/place-order',
+                    method: 'post',
+                    data: $('#checkout-form').serialize(),
+                    success: (response) => {
+                        if (response.codSuccess) {
+                            // location.href = '/users/order-success/cod'
+                        }
+                        else {
+                            razorPayment(response.options, response.userDetails, response.orderId)
+                        }
+                    }
+                })
+            })
+
+            function razorPayment(payDetails, userDetails, orderId) {
+
+                let options = {
+                    "key": 'rzp_test_y5gvtRY9ZcI4Xg',
+                    "amount": payDetails.amount,
+                    "currency": "INR",
+                    "name": "COZA Store",
+                    "description": "COZA Store Payment",
+                    "image": "http://localhost:3000/user/img/logo.png",
+                    "order_id": orderId,
+                    "handler": function (response) {
+                        paymentSuccess(response, payDetails, userDetails, orderId);
+                },
+                "prefill": {
+                    "name": userDetails.fullName,
+                        "email": userDetails.email,
+                            "contact": userDetails.mobile
+                },
+                "notes": {
+                    "address": userDetails.address
+                },
+                "theme": {
+                    "color": "#3399cc"
+                }
+            };
+            let rzp1 = new Razorpay(options);
+            rzp1.on('payment.failed', function (response) {
+                // window.location = '/gp/checkout/paymentFail';
+            });
+            rzp1.open();
+                // e.preventDefault();
+            }
+
+            function paymentSuccess(payment, payDetails, userDetails, orderId) {
+                $.ajax({
+                    url: '/users/verify-payment',
+                    data: {
+                        payment,
+                        payDetails,
+                        userDetails,
+                        orderId
+                    },
+                    method: 'post',
+                    success: (response) => {
+                        let id=response.id;
+                        console.log(id)
+                        if (response.paymentOk) {
+                            location.href = '/users/order-success/'+id
+                        }
+                        else {
+                            alert('Payment Unsuccessfull')
+                        }
+                    }
+                })
+            }
+
+        </script>
+        <script src="/vendor/MagnificPopup/jquery.magnific-popup.min.js"></script>
+
+        <script src="/vendor/perfect-scrollbar/perfect-scrollbar.min.js"></script>
+        <script>
+            $('.js-pscroll').each(function () {
+                $(this).css('position', 'relative');
+                $(this).css('overflow', 'hidden');
+                var ps = new PerfectScrollbar(this, {
+                    wheelSpeed: 1,
+                    scrollingThreshold: 1000,
+                    wheelPropagation: false,
+                });
+
+                $(window).on('resize', function () {
+                    ps.update();
+                })
+            });
+        </script>
+        <!--===============================================================================================-->
+        <script src="/js/main.js"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Your Cart</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!--===============================================================================================-->
+    <link rel="icon" type="image/png" href="../images/icons/favicon.png" />
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="../vendor/bootstrap/css/bootstrap.min.css">
+    <!--=========================================================================================-->
+    <link rel="stylesheet" type="text/css" href="../fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+    <!--=========================================================================================-->
+    <link rel="stylesheet" type="text/css" href="../fonts/iconic/css/material-design-iconic-font.min.css">
+    <!--============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="../fonts/linearicons-v1.0.0/icon-font.min.css">
+    <!--============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="../vendor/animate/animate.css">
+    <!--============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="../vendor/css-hamburgers/hamburgers.min.css">
+    <!--============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="../vendor/animsition/css/animsition.min.css">
+    <!--============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="../vendor/select2/select2.min.css">
+    <!--============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="../vendor/perfect-scrollbar/perfect-scrollbar.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="../stylesheets/util.css">
+    <link rel="stylesheet" type="text/css" href="../stylesheets/main.css">
+    <!--===============================================================================================-->
+    <style>
+        a {
+            color: inherit;
+            text-decoration: inherit
+        }
+    </style>
+</head>
+
+<body class="animsition">
+    <%- include('./partials/navbar') %>
+
+    <!-- Header -->
+    <div class="p-b-45">
+        <h3 class="ltext-106 cl5 txt-center" style="margin-top: 3em;" >
+            Your Cart
+        </h3>
+    </div>
+
+    <!-- breadcrumb -->
+    <div class="container">
+        <div class="bread-crumb flex-w p-l-25 p-r-15 p-t-30 p-lr-0-lg">
+            <a href="/pages/home" class="stext-109 cl8 hov-cl1 trans-04">
+                Home
+                <i class="fa fa-angle-right m-l-9 m-r-10" aria-hidden="true"></i>
+            </a>
+
+            <span class="stext-109 cl4">
+                Shopping Cart
+            </span>
+        </div>
+    </div>
+
+
+    <!-- Shoping Cart -->
+    <!-- <form  action="/users/checkoutview/ " method="post" class="bg0 p-t-20 p-b-10"> -->
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-9">
+                <div class="m-l-25 m-r--38 m-lr-0-xl">
+                    <div class="wrap-table-shopping-cart">
+                        <table class="table-shopping-cart">
+                            <tr class="table_head">
+                                <th style="text-align: center;">Product</th>
+                                <th style="text-align: center;"></th>
+                                <th style="text-align: center;">Price</th>
+                                <th style="text-align: center;">variant</th>
+                                <th style="text-align: center;">Quantity</th>
+                                <th style="text-align: center;">Total</th>
+                            </tr>
+                            <% let total=0 %>
+                                <% viewCart.forEach((p)=>{ %>
+                                    <% p.product.forEach((p2)=>{ %>
+                                        <tr class="table_row">
+                                            <td style="text-align: center;">
+                                                <div class="how-itemcart1">
+                                                    <img src="<%= p2.image[0].url %>" alt="IMG">
+                                                </div>
+                                            </td>
+                                            <td style="text-align: center;">
+                                                <a href="/pages/viewproduct/<%= p2._id %> ">
+                                                    <%= p2.product_name %>
+                                                </a>
+                                            </td>
+                                            <td style="text-align: center;">
+                                                <% if(p.variant=='stock1' ){%>
+                                                    ₹<%=p2.selling_price%>.00
+                                                        <% }else if(p.variant=='stock2' ) {%>
+                                                            ₹<%=p2.selling_price+(p2.selling_price*10) /100%>.00
+                                                                <% }else if(p.variant=='stock3' ){%>
+                                                                    ₹<%=p2.selling_price+(p2.selling_price*12) /100%>.00
+                                                                        <% }else if(p.variant=='stock4' ){%>
+                                                                            ₹<%=p2.selling_price+(p2.selling_price*15)
+                                                                                /100%>.00
+                                                                                <% }else{ %>
+                                                                                    ₹
+                                                                                    <%=p2.selling_price+(p2.selling_price*18)
+                                                                                        /100%>.00
+                                                                                        <% } %>
+                                            </td>
+                                            <td style="text-align: center;">
+                                                <% if(p.variant=='stock1' ){%>
+                                                    4GB RAM<br>64GB ROM
+                                                    <% }else if(p.variant=='stock2' ) {%>
+                                                        4GB RAM<br>128GB ROM
+                                                        <% }else if(p.variant=='stock3' ){%>
+                                                            6GB RAM<br>128GB ROM
+                                                            <% }else if(p.variant=='stock4' ){%>
+                                                                8GB RAM<br>256GB ROM
+                                                                <% }else{ %>
+                                                                    12GB RAM<br>1TB ROM
+                                                                    <% } %>
+                                            </td>
+                                            <td style="text-align: center;">
+                                                <div class="wrap-num-product flex-w m-l-auto m-r-0">
+                                                    <button <%=p.itemQuantity==1 ? 'disabled' :''%> onclick="changeQuantity('<%=p._id%>','<%=p2._id%>','-1','<%=p.variant%>')"><i
+                                                                    style="padding: 1em;"
+                                                                    class="fs-16 zmdi zmdi-minus"></i>
+                                                    </button>
+                                                    <input class="mtext-104 cl3 txt-center num-product" id="qty"
+                                                        type="number" value="<%= p.itemQuantity %>" readonly>
+                                                    <button onclick="changeQuantity('<%=p._id%>','<%=p2._id%>','1','<%=p.variant%>')"><i
+                                                            style="padding: 1em;"
+                                                            class="fs-16 zmdi zmdi-plus"></i></button>
+                                                </div>
+                                            </td>
+                                            <td style="text-align: center;">
+                                                ₹<%= p2.selling_price * p.itemQuantity %>.00
+                                                    <% total +=p2.selling_price * p.itemQuantity %>
+                                            </td>
+                                            <td style="text-align: center;">
+                                                <button onclick="removeProduct('<%=p2._id%>','<%=p.variant%>')"
+                                                    class="btn btn-danger m-2">Delete</button>
+                                            </td>
+                                        </tr>
+                                        <% }) %>
+                                            <% }) %>
+
+                        </table>
+                    </div>
+
+                    <div class="flex-w flex-sb-m bor15 p-t-18 p-b-15 p-lr-40 p-lr-15-sm">
+                        <div class="flex-w flex-m m-r-20 m-tb-5">
+                            <input class="stext-104 cl2 plh4 size-117 bor13 p-lr-20 m-r-10 m-tb-5" type="text"
+                                name="coupon" placeholder="Coupon Code">
+
+                            <div
+                                class="flex-c-m stext-101 cl2 size-118 bg8 bor13 hov-btn3 p-lr-15 trans-04 pointer m-tb-5">
+                                Apply coupon
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="row ml-5 justify-content-center">
+            <div class="col-md-6">
+                <div style="padding: 1.5em; margin-top: 5em; border: 1px solid #e6e6e6;">
+                    <h4 class="mtext-109 cl2 p-b-30">
+                        Cart Summary
+                    </h4>
+
+                    <div class="flex-w flex-t bor12 p-b-13">
+                        <div class="size-208">
+                            <span class="stext-110 cl2">
+                                Subtotal:
+                            </span>
+                        </div>
+
+                        <div class="size-209">
+                            <span class="mtext-110 cl2">
+                                ₹<%=total%>.00
+                            </span>
+                        </div>
+                    </div>
+                    <div class="flex-w mt-3 flex-t bor12 p-b-13">
+                        <div class="size-208">
+                            <span class="stext-110 cl2">
+                                No of Products:
+                            </span>
+                        </div>
+
+                        <div class="size-209">
+                            <span class="mtext-110 cl2">
+                                <%=cartCount[0].count%>
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="flex-w flex-t bor12 p-t-15 p-b-30">
+                        <div class="size-208 w-full-ssm">
+                            <span class="stext-110 cl2">
+                                Shipping:
+                            </span>
+                        </div>
+
+                        <div class="size-209 p-r-18 p-r-0-sm w-full-ssm">
+                            <div class="size-209">
+                                <% if(total>49999) {%> 
+                                <span style="color: rgb(13, 173, 13);" class="mtext-110 cl2">
+                                    Free
+                                </span>
+                                <% }else{%> 
+                                <span class="mtext-110 cl2">
+                                        ₹ +40/-
+                                </span>
+                                <% } %> 
+                            </div>
+
+
+                        </div>
+                    </div>
+
+                    <div class="flex-w flex-t p-t-27 p-b-33">
+                        <div class="size-208">
+                            <span class="mtext-101 cl2">
+                                Total:
+                            </span>
+                        </div>
+
+                        <div class="size-209 p-t-1">
+                                <% if(total>49999) {%> 
+                                <span class="mtext-110 cl2">
+                                    ₹<%=total%>.00
+                                </span>
+                                <% }else{%> 
+                                <span class="mtext-110 cl2">
+                                    ₹<%=total + 40%>.00
+                                </span>
+                                <% } %> 
+                        </div>
+                    </div>
+
+                    <form action="/users/checkoutview/<%=viewCart[0]._id%>" method="post"><button
+                            class="flex-c-m stext-101 cl0 size-116 bg3 bor14 hov-btn3 p-lr-15 trans-04 pointer">
+                            Proceed to Checkout
+                        </button>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <!-- </form> -->
+
+
+
+
+    <!-- Footer -->
+    <%- include('./partials/footer') %>
+
+
+        <!-- Back to top -->
+        <div class="btn-back-to-top" id="myBtn">
+            <span class="symbol-btn-back-to-top">
+                <i class="zmdi zmdi-chevron-up"></i>
+            </span>
+        </div>
+        <!--===============================================================================================-->
+        <script src="../vendor/jquery/jquery-3.2.1.min.js"></script>
+        <!--===============================================================================================-->
+        <script src="../vendor/animsition/js/animsition.min.js"></script>
+        <!--===============================================================================================-->
+        <script src="../vendor/bootstrap/js/popper.js"></script>
+        <script src="../vendor/bootstrap/js/bootstrap.min.js"></script>
+        <!--===============================================================================================-->
+        <script src="../vendor/select2/select2.min.js"></script>
+
+        <script>
+            $(".js-select2").each(function () {
+                $(this).select2({
+                    minimumResultsForSearch: 20,
+                    dropdownParent: $(this).next('.dropDownSelect2')
+                });
+            })
+        </script>
+        <script>
+            function changeQuantity(cartId, proId, count,variant) {
+                $.ajax({
+                    url: '/users/change-product-qt',
+                    data: {
+                        cart: cartId,
+                        product: proId,
+                        count: count,
+                        variant:variant
+                    },
+                    method: 'post',
+                    success: location.reload()
+                })
+            }
+
+            function removeProduct(proId,variant) {
+                $.ajax({
+                    url: '/users/cartItemDelete',
+                    data: {
+                        product: proId,
+                        variant:variant
+                    },
+                    method: 'post',
+                    success: location.reload()
+                })
+            }
+
+        </script>
+        <script src="../vendor/MagnificPopup/jquery.magnific-popup.min.js"></script>
+
+        <script src="../vendor/perfect-scrollbar/perfect-scrollbar.min.js"></script>
+        <script>
+            $('.js-pscroll').each(function () {
+                $(this).css('position', 'relative');
+                $(this).css('overflow', 'hidden');
+                var ps = new PerfectScrollbar(this, {
+                    wheelSpeed: 1,
+                    scrollingThreshold: 1000,
+                    wheelPropagation: false,
+                });
+
+                $(window).on('resize', function () {
+                    ps.update();
+                })
+            });
+        </script>
+        <!--===============================================================================================-->
+        <script src="../js/main.js"></script>
+
+</body>
+
+</html>

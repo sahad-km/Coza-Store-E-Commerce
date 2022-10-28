@@ -1,0 +1,118 @@
+<link href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+<!------ Include the above in your HEAD tag ---------->
+
+<form class="form-horizontal" action="/admin/insertproduct" method="POST" enctype="multipart/form-data">
+  <fieldset>
+
+    <!-- Form Name -->
+    <legend>PRODUCTS</legend>
+
+    <!-- Text input-->
+    <div class="form-group">
+      <label class="col-md-4 control-label" for="product_name">PRODUCT NAME</label>
+      <div class="col-md-4">
+        <input id="product_name" name="product_name" placeholder="PRODUCT NAME" class="form-control input-md"
+          required="" type="text">
+      </div>
+    </div>
+
+    <!-- Select Basic -->
+    <div class="form-group">
+      <label class="col-md-4 control-label" for="product_brand">PRODUCT BRAND</label>
+      <div class="col-md-4">
+        <select id="product_brand" name="product_brand" class="form-control">
+          <% for(values of brandDisplay ){ %>
+            <option value=" <%= values.brand_name %>">
+              <%= values.brand_name %>
+            </option>
+            <% } %>
+        </select>
+      </div>
+    </div>
+
+    <!-- Textarea -->
+    <div class="form-group">
+      <label class="col-md-4 control-label" for="product_description">PRODUCT DESCRIPTION</label>
+      <div class="col-md-4">
+        <textarea class="form-control" id="product_description" name="product_description"></textarea>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label class="col-md-4 control-label" for="">4 GB 64 GB</label>
+      <div class="col-md-4">
+        <input  name="stock1" placeholder="NO.OF STOCKS" class="form-control input-md"
+          required type="number">
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label class="col-md-4 control-label" for="">4 GB 128 GB</label>
+      <div class="col-md-4">
+        <input name="stock2" placeholder="NO.OF STOCKS" class="form-control input-md"
+          required type="number">
+      </div>
+    </div>
+
+    <!-- Textarea -->
+    <div class="form-group">
+      <label class="col-md-4 control-label" for="">6 GB 128 GB</label>
+      <div class="col-md-4">
+        <input name="stock3" placeholder="NO.OF STOCKS" class="form-control input-md"
+          required type="number">
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label class="col-md-4 control-label" for="">8 GB 256 GB</label>
+      <div class="col-md-4">
+        <input name="stock4" placeholder="NO.OF STOCKS" class="form-control input-md"
+          required type="number">
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label class="col-md-4 control-label" for="">12 GB 1 TB</label>
+      <div class="col-md-4">
+        <input  name="stock5" placeholder="NO.OF STOCKS" class="form-control input-md"
+          required type="number">
+      </div>
+    </div>
+    <!-- Text input-->
+    <div class="form-group">
+      <label class="col-md-4 control-label" for="selling_price">SELLING PRICE</label>
+      <div class="col-md-4">
+        <input id="selling_price" name="selling_price" placeholder="SELLING PRICE" class="form-control input-md"
+          required type="number">
+
+      </div>
+    </div>
+
+    <!-- Text input-->
+    <div class="form-group">
+      <label class="col-md-4 control-label" for="org_price">MRP</label>
+      <div class="col-md-4">
+        <input id="org_price" name="org_price" placeholder="MRP" class="form-control input-md" required="" type="text">
+      </div>
+    </div>
+
+
+    <!-- File Button -->
+    <div class="form-group">
+      <label class="col-md-4 control-label" for="image">PRODUCT IMAGE</label>
+      <div class="col-md-4">
+        <input name="image" class="input-file" type="file" multiple>
+      </div>
+    </div>
+
+    <!-- Button -->
+    <div class="form-group">
+      <label class="col-md-4 control-label" for="singlebutton">INSERT PRODUCT</label>
+      <div class="col-md-4">
+        <button type="submit" id="singlebutton" name="singlebutton" class="btn btn-primary">Add Product</button>
+      </div>
+    </div>
+  </fieldset>
+</form>

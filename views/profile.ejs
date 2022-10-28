@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile</title>
+    <!-- CSS only -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+
+    <!-- Libraries Stylesheet -->
+    <link href="/checkout/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="/checkout/css/style.css" rel="stylesheet">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="/stylesheets/util.css">
+    <link rel="stylesheet" type="text/css" href="/stylesheets/main.css">
+     <!--===============================================================================================-->
+</head>
+
+<body style="font-family: Arial, sans-serif; font-size: 15px; color: #666666;">
+    <div class="container rounded bg-white mt-5 mb-5">
+        <div class="row">
+            <div class="col-md-2 border-right">
+                <div class="d-flex flex-column align-items-center text-center p-3 py-5"><img class="rounded-circle mt-5"
+                        width="150px"
+                        src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg">
+                    <span class="font-weight-bold">
+                        <%=userDetails.name%>
+                    </span><span class="text-black-50">
+                        <%=userDetails.email%>
+                    </span><span> </span>
+                </div>
+            </div>
+            <div class="col-md-5 border-right">
+                <div class="p-3 py-5">
+                    <div class="d-flex justify-content-center align-items-center mb-3">
+                        <h4 class="text-right">Profile Settings</h4>
+                    </div>
+                    <table class="table">
+                        <tbody>
+                          <tr>
+                            <td>Name</td>
+                            <td style="text-align: end;" ><%=userDetails.name%></td>
+                          </tr>
+                          <tr>
+                            <td>Email</td>
+                            <td style="text-align: end;"><%=userDetails.email%></td>
+                          </tr>
+                          <tr>
+                            <td>Mobile Number</td>
+                            <td style="text-align: end;" >+91 <%=userDetails.mobNumber%></td>
+                          </tr>
+                          <tr>
+                            <td>E-Mail Verification</td>
+                            <td style="color: green; text-align: end; " >Verified</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    <div class="mt-5 text-center">
+                        <a href="/users/orderhistory"><button class="flex-c-m stext-101 cl0 size-116 bg3 bor14 hov-btn3 p-lr-15 trans-04 pointer" type="button">View Oder History</button></a></div>
+                </div>
+            </div>
+            <div class="col-md-5">
+                <div class="p-2 py-5">
+                    <div class="d-flex justify-content-center align-items-center mb-3">
+                        <h4 class="text-right">Saved Billing Addresses</h4>
+                    </div>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">SI NO</th>
+                                <th scope="col">Address</th>
+                                <th scope="col">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% let count=1 %>
+                                <%userDetails.address.forEach((p)=>{%>
+                                    <tr>
+                                        <th scope="row">
+                                            <%=count%>
+                                        </th>
+                                        <td>
+                                            <%=p.fullName%><br>
+                                                <%=p.houseName%>,<%=p.city%>,<%=p.state%>,<%=p.country%><br>PIN Code:
+                                                                <%=p.pincode%><br>Mobile Number:<%=p.mobNumber%>
+                                                                        <br>E-Mail:<%=p.email%>
+                                        </td>
+                                        <td> <a href="/users/delete/<%=p._id%>">Delete</a></td>
+                                    </tr>
+                                    <% count++ }) %>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Button trigger modal -->
+<button type="button" class="flex-c-m stext-101 cl0 size-116 bg3 bor14 hov-btn3 p-lr-15 trans-04 pointer" data-toggle="modal" data-target="#exampleModal">
+    + Add New Address
+  </button>
+  
+  <!-- Modal -->
+  <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+            <h4 class="font-weight-semi-bold mb-4">Billing Address</h4>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+            <form action="/users/addToProfile" method="post">
+                <div class="col-md-12 form-group">
+                    <label>Full Name</label>
+                    <input class="form-control" name="fullName" type="text" placeholder="John">
+                </div>
+                <div class="col-md-12 form-group">
+                    <label>E-mail</label>
+                    <input class="form-control" name="email" type="text" placeholder="example@email.com">
+                </div>
+                <div class="col-md-12 form-group">
+                    <label>Mobile No</label>
+                    <input class="form-control" name="mobNumber" type="text" placeholder="+123 456 789">
+                </div>
+                <div class="col-md-12 form-group">
+                    <label>Address Line </label>
+                    <input class="form-control" type="text" name="houseName" placeholder="123 Street">
+                </div>
+                <div class="col-md-12 form-group">
+                    <label>City</label>
+                    <input class="form-control" type="text" name="city" placeholder="New York">
+                </div>
+                <div class="col-md-12 form-group">
+                    <label for="inputState">State</label>
+                    <select name="state" id="inputState" required class="form-control">
+                        <option selected>Choose...</option>
+                        <option value="Kerala">Kerala</option>
+                        <option value="TamilNadu">TamilNadu</option>
+                    </select>
+                </div>
+                <div class="col-md-12 form-group">
+                    <label>PIN Code</label>
+                    <input class="form-control" name="pincode" type="text" placeholder="123">
+                </div>
+                <div class="col-md-12 form-group">
+                    <label>Country</label>
+                    <select name="country" class="custom-select">
+                        <option value="India" selected>India</option>
+                        <option value="United Arab Emirates">United Arab Emirates</option>
+                        <option value="United Kingdom">United Kingdom</option>
+                        <option value="United States">United States</option>
+                    </select>
+                </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button"
+            class="flex-c-m stext-101 cl0 size-116 bg3 bor14 hov-btn3 p-lr-15 trans-04 pointer"
+            data-dismiss="modal">Close</button>
+        <button type="submit"
+            class="flex-c-m stext-101 cl0 size-116 bg3 bor14 hov-btn3 p-lr-15 trans-04 pointer">+
+            Add Address</button>
+        </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+                <!--//////////////////////////////////////////////////////////////-->
+            </div>
+        </div>
+    </div>
+     <!--===============================================================================================-->
+     <script src="/vendor/jquery/jquery-3.2.1.min.js"></script>
+     <!--===============================================================================================-->
+     <script src="/vendor/animsition/js/animsition.min.js"></script>
+     <!--===============================================================================================-->
+     <script src="/vendor/bootstrap/js/popper.js"></script>
+     <script src="/vendor/bootstrap/js/bootstrap.min.js"></script>
+     <!--===============================================================================================-->
+     <script src="/vendor/select2/select2.min.js"></script>
+
+     <script>
+         $(".js-select2").each(function () {
+             $(this).select2({
+                 minimumResultsForSearch: 20,
+                 dropdownParent: $(this).next('.dropDownSelect2')
+             });
+         })
+     </script>
+    <!-- JavaScript Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
