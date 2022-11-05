@@ -144,7 +144,7 @@ const orderedProducts = async(req,res)=>{
             }
         },
     ])
-        res.render('ordered_product',{productDetails})
+        res.render('Admin/ordered_products',{productDetails})
     }
     catch(err){
         res.send(err);
@@ -153,14 +153,12 @@ const orderedProducts = async(req,res)=>{
 
 const signin = async (req, res) => {
     const { email, password } = req.body;
-    console.log(req.body);
     const admin = await Admin.findOne({ email });
     if (admin) {
         const validPassword = await bcrypt.compare(password, admin.password);
         if (validPassword) {
             req.session.userType = 'admin';
             req.session.adminId = admin._id;
-            console.log("logged in");
             req.flash('success', 'Successfully Logged In');
             res.redirect('/admin/dashboard');
         }
@@ -232,8 +230,20 @@ const adminDashbord = async (req, res) => {
 
 
 const logout = (req, res) => {
+    req.flash('sucess','Successfully Logout')
     req.session.destroy();
-    res.redirect('/admin/signin')
+    res.redirect('/admin/signin');
+}
+
+const bannerDelete = async (req, res) => {
+    try{
+    const bannerId = req.body.bannerId;
+    await Banner.findByIdAndDelete(bannerId);
+    req.flash('success','Successfully Deleted the Banner');
+    res.redirect('/admin/viewbanner');
+    }catch(err){
+        res.render('404NotFound');
+    }
 }
 
 const userDetailsLoad = async (req, res) => {
@@ -270,6 +280,7 @@ const changeStatus = async (req,res) =>{
     let orderStatusId = id.orderStatus[0]._id;
     const status = req.body.status;
     await Checkout.findOneAndUpdate({ $and: [{_id: orderId }, { "orderStatus._id": orderStatusId }] },{ $set: { "orderStatus.$.type": status }});
+    req.flash('success','Successfully Updated');
     res.redirect('/admin/vieworders')
 }
 
@@ -286,7 +297,8 @@ const addBrand = async (req, res) => {
     console.log(req.body.brand_name)
     const exist_brand = await Brand.findOne({ brand_name: req.body.brand_name });
     if (exist_brand) {
-        res.render('add_brand', {msg: 'Brand already exist' });
+        req.flash('error','Brand Already exits')
+        res.render('add_brand');
     } else {
         const { brand_name } = req.body;
         const brand = new Brand({
@@ -300,6 +312,6 @@ const addBrand = async (req, res) => {
 
 
 module.exports = {
-    insertProduct,changeStatus,orderedProducts,deleteProduct,userDetailsLoad, brandDetailsLoad,orderDetailsLoad,insertBanner, productLoad, brandDelete, userBlock, productUpdate,
+    insertProduct,bannerDelete,changeStatus,orderedProducts,deleteProduct,userDetailsLoad, brandDetailsLoad,orderDetailsLoad,insertBanner, productLoad, brandDelete, userBlock, productUpdate,
     productDetailsLoad, signin, signinPage, adminDashbord,addBannerView, bannerDetailsLoad, logout, addBrandView, addProductView, addBrand,
 };

@@ -33,6 +33,7 @@ router.post(('/insertproduct'),session.adminSession,upload.array('image'), admin
 router.get('/viewbanner',session.adminSession,adminController.bannerDetailsLoad);
 router.get('/addbanner',session.adminSession,adminController.addBannerView);
 router.post(('/insertbanner'),session.adminSession,upload.array('image'), adminController.insertBanner);
+router.post('/deletebanner',session.adminSession,adminController.bannerDelete);
 //--------------------------------------------------------//
 router.get('/vieworders',session.adminSession,adminController.orderDetailsLoad);
 router.get('/ordered-products',session.adminSession,adminController.orderedProducts);

@@ -154,7 +154,7 @@ $(document).ready(function(){
                 </div>
             </nav>
         </header>
-        <%- include('../partials/flash') %>
+        
         <!-- ============================================================== -->
         <!-- End Topbar header -->
         <!-- ============================================================== -->
@@ -202,7 +202,7 @@ $(document).ready(function(){
                             </a>
                         </li>
                         <li class="sidebar-item">
-                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="#" aria-expanded="false">
+                            <a class="sidebar-link waves-effect waves-dark sidebar-link active" href="#" aria-expanded="false">
                                 <i class="mdi mdi-file"></i>
                                 <span class="hide-menu">Orders</span>
                             </a>
@@ -232,6 +232,7 @@ $(document).ready(function(){
             <!-- ============================================================== -->
             <div class="page-breadcrumb">
                 <div class="row">
+                    <%- include('../partials/flash') %>
                     <div class="col-5 align-self-center">
                         <h4 class="page-title">Orders</h4>
                     </div>

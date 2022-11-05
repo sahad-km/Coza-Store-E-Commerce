@@ -12,7 +12,7 @@
         content="Nice Admin Lite is powerful and clean admin dashboard template, inpired from Bootstrap Framework">
     <meta name="robots" content="noindex,nofollow">
     <title>Dashboard</title>
-    <link rel="stylesheet" href="//cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <link rel="canonical" href="https://www.wrappixel.com/templates/niceadmin-lite/" />
     <!-- Favicon icon -->
     <link rel="icon" type="image/png" sizes="16x16" href="/Admin-Page/assets/images/favicon.png">
@@ -20,12 +20,16 @@
     <link href="/Admin-Page/assets/libs/chartist/dist/chartist.min.css" rel="stylesheet">
     <!-- Custom CSS -->
     <link href="/Admin-Page/dist/css/style.min.css" rel="stylesheet">
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-<![endif]-->
+    <script>
+        $(document).ready(function(){
+          $("#myInput").on("keyup", function() {
+            var value = $(this).val().toLowerCase();
+            $("#myTable tr").filter(function() {
+              $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+            });
+          });
+        });
+        </script>
 </head>
 
 <body>
@@ -107,7 +111,7 @@
                                 </div>
                             </a>
                             <form class="app-search position-absolute">
-                                <input type="text" class="form-control" placeholder="Search &amp; enter">
+                                <input id="myInput" type="text" class="form-control" placeholder="Search &amp; enter">
                                 <a class="srh-btn">
                                     <i class="ti-close"></i>
                                 </a>
@@ -129,7 +133,7 @@
                             </a>
                             <ul class="dropdown-menu dropdown-menu-end user-dd animated"
                                 aria-labelledby="navbarDropdown">
-                                
+
                                 <a class="dropdown-item" href="/admin/logout"><i class="ti-share me-1 ms-1"></i>
                                     Logout</a>
                             </ul>
@@ -141,7 +145,7 @@
                 </div>
             </nav>
         </header>
-        <%- include('../partials/flash') %>
+
         <!-- ============================================================== -->
         <!-- End Topbar header -->
         <!-- ============================================================== -->
@@ -162,7 +166,7 @@
                             </a>
                         </li>
                         <li class="sidebar-item">
-                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="#" aria-expanded="false">
+                            <a class="sidebar-link waves-effect waves-dark sidebar-link active" href="#" aria-expanded="false">
                                 <i class="mdi mdi-account-network"></i>
                                 <span class="hide-menu">Products</span>
                             </a>
@@ -220,21 +224,22 @@
             <!-- ============================================================== -->
             <div class="page-breadcrumb">
                 <div class="row">
-                    <div class="col-5 align-self-center">
-                        <h4 class="page-title">Our Products</h4>
-                    </div>
-                    <div class="col-7 align-self-center">
-                        <div class="d-flex align-items-center justify-content-end">
-                            <nav aria-label="breadcrumb">
-                                <ol class="breadcrumb">
-                                    <li class="breadcrumb-item">
-                                        <a href="#">Home</a>
-                                    </li>
-                                    <li class="breadcrumb-item active" aria-current="page">Products</li>
-                                </ol>
-                            </nav>
+                    <%- include('../partials/flash') %>
+                        <div class="col-5 align-self-center">
+                            <h4 class="page-title">Our Products</h4>
                         </div>
-                    </div>
+                        <div class="col-7 align-self-center">
+                            <div class="d-flex align-items-center justify-content-end">
+                                <nav aria-label="breadcrumb">
+                                    <ol class="breadcrumb">
+                                        <li class="breadcrumb-item">
+                                            <a href="#">Home</a>
+                                        </li>
+                                        <li class="breadcrumb-item active" aria-current="page">Products</li>
+                                    </ol>
+                                </nav>
+                            </div>
+                        </div>
                 </div>
                 <div class="col-sm-4 mt-3">
                     <button type="button" style=" background-color: #233242;" class="btn add-new"><i
@@ -269,7 +274,7 @@
                                     <th>Actions</th>
                                 </tr>
                             </thead>
-                            <tbody>
+                            <tbody id="myTable" >
                                 <% if (productDisplay.length>0) {
                                     let count=1
                                     productDisplay.forEach((product)=>{ %>
@@ -300,16 +305,43 @@
                                             <% if(product.deleteStatus){%>
                                                 Deleted
                                                 <% }else{%>
-                                                Active 
-                                                <% } %>
+                                                    Active
+                                                    <% } %>
                                         </td>
                                         <td>
                                             <% if(!product.deleteStatus){%>
-                                            <a href="/admin/editproduct/<%=product._id%>" class="btn btn-warning m-2">
-                                                Edit</a>
-                                                <button class="btn btn-danger m-2"
-                                                onclick="deleteProduct('<%=product._id%>')">Delete</button>
-                                                <% }%>
+                                                <a href="/admin/editproduct/<%=product._id%>"
+                                                    class="btn btn-warning m-2">
+                                                    Edit</a>
+                                                    <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                                                        data-bs-target="#exampleModal<%=count%>">
+                                                        Delete
+                                                    </button>
+                                                    <div class="modal fade" id="exampleModal<%=count%>" tabindex="-1"
+                                                        aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                        <div class="modal-dialog">
+                                                            <div class="modal-content">
+                                                                <div class="modal-header">
+                                                                    <h5 class="modal-title" id="exampleModalLabel">Modal
+                                                                        title</h5>
+                                                                    <button type="button" class="btn-close"
+                                                                        data-bs-dismiss="modal"
+                                                                        aria-label="Close"></button>
+                                                                </div>
+                                                                <div class="modal-body">
+                                                                    Are you sure want to Delete this Product ?
+                                                                </div>
+                                                                <div class="modal-footer">
+                                                                    <button type="button" class="btn btn-secondary"
+                                                                        data-bs-dismiss="modal">Close</button>
+                                                                    <button onclick="deleteProduct('<%=product._id%>')"
+                                                                        type="button"
+                                                                        class="btn btn-primary">Ok</button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <% }%>
                                         </td>
                                     </tr>
                                     <% count++ }) } %>
@@ -331,7 +363,7 @@
                     </div>
                 </div>
             </div>
-            < <footer class="footer text-center">
+             <footer class="footer text-center">
                 All Rights Reserved by Brototype Designed and Developed by
                 <a href="">SAHAD KM</a>.
                 </footer>
@@ -343,7 +375,7 @@
                                 productId: productId,
                             },
                             method: 'post',
-                            success:(response)=>{
+                            success: (response) => {
                                 location.reload()
                             }
                         })

@@ -37,9 +37,7 @@ const sendOTPVerificationEmail = async(req,res) => {
             })
             await newOTPVerification.save()
             await transporter.sendMail(mailOptions)
-            req.flash('success','An OTP has sended to your Email')
-            console.log(email)
-           
+            res.send({success:true})
         }
         catch(err){
             res.json({

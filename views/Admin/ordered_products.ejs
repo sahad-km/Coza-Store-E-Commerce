@@ -12,7 +12,6 @@
         content="Nice Admin Lite is powerful and clean admin dashboard template, inpired from Bootstrap Framework">
     <meta name="robots" content="noindex,nofollow">
     <title>Dashboard</title>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <link rel="canonical" href="https://www.wrappixel.com/templates/niceadmin-lite/" />
     <!-- Favicon icon -->
     <link rel="icon" type="image/png" sizes="16x16" href="/Admin-Page/assets/images/favicon.png">
@@ -20,16 +19,6 @@
     <link href="/Admin-Page/assets/libs/chartist/dist/chartist.min.css" rel="stylesheet">
     <!-- Custom CSS -->
     <link href="/Admin-Page/dist/css/style.min.css" rel="stylesheet">
-    <script>
-        $(document).ready(function(){
-          $("#myInput").on("keyup", function() {
-            var value = $(this).val().toLowerCase();
-            $("#myTable tr").filter(function() {
-              $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
-            });
-          });
-        });
-        </script>
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -74,7 +63,8 @@
                                 <!-- Dark Logo icon -->
                                 <img src="/Admin-Page/assets/images/logo-icon.png" alt="homepage" class="dark-logo" />
                                 <!-- Light Logo icon -->
-                                <img src="/Admin-Page/assets/images/logo-light-icon.png" alt="homepage" class="light-logo" />
+                                <img src="/Admin-Page/assets/images/logo-light-icon.png" alt="homepage"
+                                    class="light-logo" />
                             </b>
                             <!--End Logo icon -->
                             <!-- Logo text -->
@@ -82,7 +72,8 @@
                                 <!-- dark Logo text -->
                                 <img src="/Admin-Page/assets/images/logo-text.png" alt="homepage" class="dark-logo" />
                                 <!-- Light Logo text -->
-                                <img src="/Admin-Page/assets/images/logo-light-text.png" class="light-logo" alt="homepage" />
+                                <img src="/Admin-Page/assets/images/logo-light-text.png" class="light-logo"
+                                    alt="homepage" />
                             </span>
                         </a>
                     </div>
@@ -92,7 +83,7 @@
                     <!-- ============================================================== -->
                     <!-- Toggle which is visible on mobile only -->
                     <!-- ============================================================== -->
-                    
+
                 </div>
                 <!-- ============================================================== -->
                 <!-- End Logo -->
@@ -106,7 +97,14 @@
                         <!-- Search -->
                         <!-- ============================================================== -->
                         <li class="nav-item search-box">
-                            
+                            <a class="nav-link waves-effect waves-dark" href="javascript:void(0)">
+                            </a>
+                            <form class="app-search position-absolute">
+                                <input type="text" class="form-control" placeholder="Search &amp; enter">
+                                <a class="srh-btn">
+                                    <i class="ti-close"></i>
+                                </a>
+                            </form>
                         </li>
                     </ul>
                     <!-- ============================================================== -->
@@ -117,10 +115,14 @@
                         <!-- User profile and search -->
                         <!-- ============================================================== -->
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle text-muted waves-effect waves-dark pro-pic" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                <img src="/Admin-Page/assets/images/users/1.jpg" alt="user" class="rounded-circle" width="31">
+                            <a class="nav-link dropdown-toggle text-muted waves-effect waves-dark pro-pic" href="#"
+                                id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <img src="/Admin-Page/assets/images/users/1.jpg" alt="user" class="rounded-circle"
+                                    width="31">
                             </a>
-                            <ul class="dropdown-menu dropdown-menu-end user-dd animated" aria-labelledby="navbarDropdown">
+                            <ul class="dropdown-menu dropdown-menu-end user-dd animated"
+                                aria-labelledby="navbarDropdown">
+
                                 <a class="dropdown-item" href="/admin/logout"><i class="ti-share me-1 ms-1"></i>
                                     Logout</a>
                             </ul>
@@ -132,7 +134,7 @@
                 </div>
             </nav>
         </header>
-        <%- include('../partials/flash') %>
+
         <!-- ============================================================== -->
         <!-- End Topbar header -->
         <!-- ============================================================== -->
@@ -181,15 +183,14 @@
                             </a>
                         </li>
                         <li class="sidebar-item">
-                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="/admin/vieworders"
+                            <a class="sidebar-link waves-effect waves-dark sidebar-link active" href="/admin/vieworders"
                                 aria-expanded="false">
                                 <i class="mdi mdi-file"></i>
                                 <span class="hide-menu">Orders</span>
                             </a>
                         </li>
                         <li class="sidebar-item">
-                            <a class="sidebar-link waves-effect waves-dark sidebar-link active" href="/admin/viewcoupons"
-                                aria-expanded="false">
+                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="#" aria-expanded="false">
                                 <i class="mdi mdi-more"></i>
                                 <span class="hide-menu">Coupons</span>
                             </a>
@@ -212,64 +213,68 @@
             <!-- ============================================================== -->
             <div class="page-breadcrumb">
                 <div class="row">
-                    <div class="col-5 align-self-center">
-                        <h4 class="page-title">Add Coupons</h4>
-                    </div>
-                    <div class="col-7 align-self-center">
-                        <div class="d-flex align-items-center justify-content-end">
-                            <nav aria-label="breadcrumb">
-                                <ol class="breadcrumb">
-                                    <li class="breadcrumb-item">
-                                        <a href="#">Home</a>
-                                    </li>
-                                    <li class="breadcrumb-item active" aria-current="page">Coupons</li>
-                                    <li class="breadcrumb-item active" aria-current="page">New Coupon</li>
-                                </ol>
-                            </nav>
+                    <%- include('../partials/flash') %>
+                        <div class="col-5 align-self-center">
+                            <h4 class="page-title">Ordered Products</h4>
                         </div>
-                    </div>
+                        <div class="col-7 align-self-center">
+                            <div class="d-flex align-items-center justify-content-end">
+                                <nav aria-label="breadcrumb">
+                                    <ol class="breadcrumb">
+                                        <li class="breadcrumb-item">
+                                            <a href="#">Home</a>
+                                        </li>
+                                        <li class="breadcrumb-item active" aria-current="page">Orders</li>
+                                        <li class="breadcrumb-item active" aria-current="page">Ordered Products</li>
+                                    </ol>
+                                </nav>
+                            </div>
+                        </div>
                 </div>
-            </div>
-            
-            <div class="container-fluid" style="justify-content: center;" >
-                <form class="form-horizontal" action="/admin/insertcoupon" method="POST">
-                    <fieldset>
-                        <!-- Text input-->
-                        <div class="form-group">
-                            <label class="col-md-4 control-label" for="code">Coupon Code</label>
-                            <div class="col-md-4">
-                                <input id="code" name="code" placeholder="Coupon Code..."
-                                    class="form-control input-md" required="" type="text">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-md-4 control-label" for="discount">Discount Amount</label>
-                            <div class="col-md-4">
-                                <input id="discount" name="discount" placeholder="Discount Amount.."
-                                    class="form-control input-md" required="" type="text">
-                            </div>
-                        </div>
-                        <!-- File Button -->
-                        <!-- Button -->
-                        <div class="form-group">
-                            <label class="col-md-4 control-label" for="singlebutton">Insert Coupon </label>
-                            <div class="col-md-4">
-                                <button type="submit" id="singlebutton" name="singlebutton" class="btn btn-primary">Add
-                                    Coupon</button>
-                            </div>
-                        </div>
-                    </fieldset>
-                </form>
                 
             </div>
-           
+
+            <div class="container-fluid">
+                <div class="row">
+                    
+                        <% productDetails.forEach((p)=>{%>
+                            <% p.product.forEach((p2)=>{%>
+                          <div class="col-md-3">
+                            <div class="card h-100 shadow-sm"> <img
+                                src="<%=p2.image[0].url%>"
+                                class="card-img-top" alt="...">
+                              <div style="text-align: center;" class="card-body">
+                                <h5> <span style="color: black;" > Name:</span> <%=p2.product_name%></h5>
+                                <div class="clearfix mb-3"><span class="float-end price-hp"><span style="color: black;" > Price:</span><%=p2.selling_price%>.00</span> </div>
+                                <h6 class="card-title"><span style="color: black;" > Variant:</span> <% if(p.variant=='stock1' ){%>
+                                4GB RAM<br>64GB ROM
+                                <% }else if(p.variant=='stock2' ) {%>
+                                4GB RAM<br>128GB ROM
+                                <% }else if(p.variant=='stock3' ){%>
+                                6GB RAM<br>128GB ROM
+                                <% }else if(p.variant=='stock4' ){%>
+                                8GB RAM<br>256GB ROM
+                                <% }else{ %>
+                                12GB RAM<br>1TB ROM
+                                <% } %></h6>
+                                <p><span style="color: black;" > Quantity:</span> <%=p.itemQuantity%></p>
+                              </div>
+                            </div>
+                          </div>
+                          <% }) %>
+                          <% }) %>
+                    
+                </div>
+
+            </div>
+
             <footer class="footer text-center">
-                All Rights Reserved by Nice admin. Designed and Developed by
-                <a >SAHAD KM</a>
+                All Rights Reserved by Brototype Designed and Developed by
+                <a href="">SAHAD K M</a>
             </footer>
-            
+
         </div>
-        
+
     </div>
     <script src="/Admin-Page/assets/libs/jquery/dist/jquery.min.js"></script>
     <!-- Bootstrap tether Core JavaScript -->

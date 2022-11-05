@@ -122,7 +122,7 @@
                             </a>
                             <ul class="dropdown-menu dropdown-menu-end user-dd animated"
                                 aria-labelledby="navbarDropdown">
-                                
+
                                 <a class="dropdown-item" href="/admin/logout"><i class="ti-share me-1 ms-1"></i>
                                     Logout</a>
                             </ul>
@@ -134,7 +134,7 @@
                 </div>
             </nav>
         </header>
-        <%- include('../partials/flash') %>
+
         <!-- ============================================================== -->
         <!-- End Topbar header -->
         <!-- ============================================================== -->
@@ -162,7 +162,8 @@
                             </a>
                         </li>
                         <li class="sidebar-item">
-                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="/admin/viewbrands" aria-expanded="false">
+                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="/admin/viewbrands"
+                                aria-expanded="false">
                                 <i class="mdi mdi-arrange-bring-forward"></i>
                                 <span class="hide-menu">Brands</span>
                             </a>
@@ -189,7 +190,7 @@
                             </a>
                         </li>
                         <li class="sidebar-item">
-                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="#" aria-expanded="false">
+                            <a class="sidebar-link waves-effect waves-dark sidebar-link active" href="#" aria-expanded="false">
                                 <i class="mdi mdi-more"></i>
                                 <span class="hide-menu">Coupons</span>
                             </a>
@@ -212,21 +213,22 @@
             <!-- ============================================================== -->
             <div class="page-breadcrumb">
                 <div class="row">
-                    <div class="col-5 align-self-center">
-                        <h4 class="page-title">Coupon Management</h4>
-                    </div>
-                    <div class="col-7 align-self-center">
-                        <div class="d-flex align-items-center justify-content-end">
-                            <nav aria-label="breadcrumb">
-                                <ol class="breadcrumb">
-                                    <li class="breadcrumb-item">
-                                        <a href="#">Home</a>
-                                    </li>
-                                    <li class="breadcrumb-item active" aria-current="page">Coupons</li>
-                                </ol>
-                            </nav>
+                    <%- include('../partials/flash') %>
+                        <div class="col-5 align-self-center">
+                            <h4 class="page-title">Coupon Management</h4>
                         </div>
-                    </div>
+                        <div class="col-7 align-self-center">
+                            <div class="d-flex align-items-center justify-content-end">
+                                <nav aria-label="breadcrumb">
+                                    <ol class="breadcrumb">
+                                        <li class="breadcrumb-item">
+                                            <a href="#">Home</a>
+                                        </li>
+                                        <li class="breadcrumb-item active" aria-current="page">Coupons</li>
+                                    </ol>
+                                </nav>
+                            </div>
+                        </div>
                 </div>
                 <div class="col-sm-4 mt-3">
                     <button type="button" style=" background-color: #233242;" class="btn add-new"><i
@@ -265,9 +267,35 @@
                                             <%= coupon.expiresAt.toLocaleDateString(); %>
                                         </td>
                                         <td>
-                                            <form action="/admin/deleteCoupon/<%= coupon._id %>">
-                                                <button class="btn btn-danger" type="submit" onclick="return confirm('Do you want to remove this coupon?')">Remove</button>
-                                            </form>
+                                            <!-- Button trigger modal -->
+                                            <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                                                data-bs-target="#exampleModal<%=count%>">
+                                                Remove
+                                            </button>
+
+                                            <!-- Modal -->
+                                            <div class="modal fade" id="exampleModal<%=count%>" tabindex="-1"
+                                                aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                <div class="modal-dialog">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <button type="button" class="btn-close"
+                                                                data-bs-dismiss="modal" aria-label="Close"></button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            Are you sure to remove this Coupon ?
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-secondary"
+                                                                data-bs-dismiss="modal">Close</button>
+                                                            <form action="/admin/deleteCoupon/<%= coupon._id %>">
+                                                                <button class="btn btn-danger"
+                                                                    type="submit">Remove</button>
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </td>
                                     </tr>
                                     <% count++ }); %>
@@ -279,8 +307,8 @@
             </div>
 
             <footer class="footer text-center">
-                All Rights Reserved by Nice admin. Designed and Developed by
-                <a href="https://www.wrappixel.com">WrapPixel</a>.
+                All Rights Reserved by Brototype Designed and Developed by
+                <a>SAHAD K M</a>.
             </footer>
 
         </div>

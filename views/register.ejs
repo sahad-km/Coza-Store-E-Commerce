@@ -9,10 +9,11 @@
 
     <!-- Font Icon -->
     <link rel="stylesheet" href="/regform/fonts/material-icon/css/material-design-iconic-font.min.css">
-
     <!-- Main css -->
     <link rel="stylesheet" href="/regform/css/style.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
 </head>
 
 <body>
@@ -23,74 +24,81 @@
         <section class="signup">
             <div class="container">
                 <%- include('./partials/flash') %>
-                <div class="signup-content">
-                    <div class="signup-form">
-                        <h2 class="form-title">Sign up</h2>
-                        <div id="hideIt">
-                            <div class="form-group">
-                                <label for="email"><i class="zmdi zmdi-email"></i></label>
-                                <input type="email" name="email" id="emailfirst" placeholder="Your Email" required />
-                            </div>
-                            <div id="hiddendiv" style="display: none;">
-                                <input type="number" name="otp" id="otp" placeholder="Enter OTP here">
-                                <button onclick="validateOTP()"
-                                    style=" margin-top: 1em; border-radius: 1em; width: 100%; background-color: rgb(0, 0, 0); color: white; font-family: 'Poppins'; font-style: italic; font-weight: 300;">Verify
-                                    Email</button>
-                            </div>
-                            <div>
-                                <button id="otpsend" type="button" onclick="ValidateEmail()"
-                                    style=" border-radius: 1em; width: 100%; background-color: rgb(0, 0, 0); color: white; font-family: 'Poppins'; font-style: italic; font-weight: 300;">Send
-                                    OTP</button>
-                            </div>
-                        </div>
-
-                        <form style="display: none;" method="POST" name="form1" action="/users/newuser"
-                            class="register-form" id="register-form">
-                            <div class="form-group">
-                                <label for="name"><i class="zmdi zmdi-account material-icons-name"></i></label>
-                                <input type="text" name="name" id="name" placeholder="Your Name" required />
-                            </div>
-                            <div class="form-group">
-                                <label for="email"><i class="zmdi zmdi-email"></i></label>
-                                <input type="email" name="email" id="email" readonly placeholder="Your Email"
-                                    required />
-                            </div>
-                            <div class="form-group">
-                                <label for="mobNumber"><i class="zmdi zmdi-phone"></i></label>
-                                <input type="number" name="mobNumber" id="" placeholder="Mobile Number" required />
-                            </div>
-                            <div class="form-group">
-                                <label for="password"><i class="zmdi zmdi-lock"></i></label>
-                                <!-- <input type="password" name="password" id="pass" placeholder="Password" required /> -->
-                                <input type="password" id="pass" name="password" placeholder="Password"
-                                    pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
-                                    title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters"
-                                    required>
-                            </div>
-                            <div class="form-group">
-                                <label for="re-pass"><i class="zmdi zmdi-lock-outline"></i></label>
-                                <input type="password" name="password1" id="re_pass"
-                                    placeholder="Repeat your password" />
-                                <input type="hidden" name="userType" value="user">
-                            </div>
-                            <div class="form-group form-button">
-                                <input type="submit" name="signup" id="signup" class="form-submit" value="Register" />
+                    <div style="width: 100%; height: 50px; "></div>
+                    <img style="width: 20%; display: block; margin-top: 1em; margin-left: auto; margin-right: auto;"
+                        src="../images/icons/logo-01.png" alt="IMG-LOGO">
+                        <div id="err" style=" padding: 1.2em; text-align: center;  background-color: rgb(252, 170, 170); display: none; " ><p style="color: red; font-weight: bolder; " >Email Already Exist, Try with another</p></div>
+                        <div id="success" style=" padding: 1.2em; text-align: center;  background-color: rgb(189, 236, 175); display: none; " ><p style="color: rgb(65, 163, 8); font-weight: bolder; " >An OTP has sended to your Email</p></div>
+                    <div class="signup-content">
+                        <div class="signup-form">
+                            <p style="font-size: x-large; font-weight: bolder; color: black; ">Create New Account</p>
+                            <div id="hideIt">
+                                <div class="form-group">
+                                    <label for="email"><i class="zmdi zmdi-email"></i></label>
+                                    <input type="email" name="email" id="emailfirst" placeholder="Your Email"
+                                        required />
+                                </div>
+                                <div id="hiddendiv" style="display: none;">
+                                    <input type="number" name="otp" id="otp" placeholder="Enter OTP here">
+                                    <button onclick="validateOTP()"
+                                        style=" margin-top: 1em; border-radius: 1em; width: 100%; background-color: rgb(0, 0, 0); color: white; font-family: 'Poppins'; font-style: italic; font-weight: 300;">Verify
+                                        Email</button>
+                                </div>
+                                <div>
+                                    <button id="otpsend" type="button" onclick="ValidateEmail()"
+                                        style=" border-radius: 1em; width: 100%; background-color: rgb(0, 0, 0); color: white; font-family: 'Poppins'; font-style: italic; font-weight: 300;">Send
+                                        OTP</button>
+                                </div>
                             </div>
 
-                        </form>
-                        <div id="message">
-                            <h5>Password must contain the following:</h5>
-                            <p id="letter" class="invalid">A <b>lowercase</b> letter</p>
-                            <p id="capital" class="invalid">A <b>capital (uppercase)</b> letter</p>
-                            <p id="number" class="invalid">A <b>number</b></p>
-                            <p id="length" class="invalid">Minimum <b>8 characters</b></p>
+                            <form style="display: none;" method="POST" name="form1" action="/users/newuser"
+                                class="register-form" id="register-form">
+                                <div class="form-group">
+                                    <label for="name"><i class="zmdi zmdi-account material-icons-name"></i></label>
+                                    <input type="text" name="name" id="name" placeholder="Your Name" required />
+                                </div>
+                                <div class="form-group">
+                                    <label for="email"><i class="zmdi zmdi-email"></i></label>
+                                    <input type="email" name="email" id="email" readonly placeholder="Your Email"
+                                        required />
+                                </div>
+                                <div class="form-group">
+                                    <label for="mobNumber"><i class="zmdi zmdi-phone"></i></label>
+                                    <input type="number" name="mobNumber" id="" placeholder="Mobile Number" required />
+                                </div>
+                                <div class="form-group">
+                                    <label for="password"><i class="zmdi zmdi-lock"></i></label>
+                                    <!-- <input type="password" name="password" id="pass" placeholder="Password" required /> -->
+                                    <input type="password" id="pass" name="password" placeholder="Password"
+                                        pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
+                                        title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters"
+                                        required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="re-pass"><i class="zmdi zmdi-lock-outline"></i></label>
+                                    <input type="password" name="password1" id="re_pass"
+                                        placeholder="Repeat your password" />
+                                    <input type="hidden" name="userType" value="user">
+                                </div>
+                                <div class="form-group form-button">
+                                    <input type="submit" name="signup" id="signup" class="form-submit"
+                                        value="Register" />
+                                </div>
+                            </form>
+                            <a style="margin-top: 2em;" href="/users/login" class="signup-image-link">I am already
+                                member</a>
+                            <div id="message">
+                                <h5>Password must contain the following:</h5>
+                                <p id="letter" class="invalid">A <b>lowercase</b> letter</p>
+                                <p id="capital" class="invalid">A <b>capital (uppercase)</b> letter</p>
+                                <p id="number" class="invalid">A <b>number</b></p>
+                                <p id="length" class="invalid">Minimum <b>8 characters</b></p>
+                            </div>
+                        </div>
+                        <div class="signup-image">
+                            <figure><img src="/regform/images/register.png" alt="sing up image"></figure>
                         </div>
                     </div>
-                    <div class="signup-image">
-                        <figure><img src="/regform/images/signup-image.jpg" alt="sing up image"></figure>
-                        <a href="/users/login" class="signup-image-link">I am already member</a>
-                    </div>
-                </div>
             </div>
         </section>
     </div>
@@ -103,8 +111,19 @@
                     email: email,
                 },
                 method: 'post',
-                success: (result) => {
-                    alert(result)
+                success: (response) => {
+                    if (response.success) {
+                        document.getElementById('success').style.display = 'block'; 
+                        $('#success').fadeIn('slow').delay(2000).hide(0);
+                        let y = document.getElementById("hiddendiv");
+                        y.style.display = "block";
+                        let x = document.getElementById("otpsend");
+                        x.style.display = "none";
+                        document.getElementById("emailfirst").readOnly = true;
+                    }else{
+                        document.getElementById('err').style.display = 'block'; 
+                        $('#err').fadeIn('slow').delay(2000).hide(0);
+                    }
                 }
             })
         }
@@ -147,11 +166,6 @@
 
             let input = document.getElementById("emailfirst").value;
             if (input.match(validRegex)) {
-                let x = document.getElementById("otpsend");
-                x.style.display = "none";
-                document.getElementById("emailfirst").readOnly = true;
-                let y = document.getElementById("hiddendiv");
-                y.style.display = "block";
                 otpVerify(input)
                 return true;
             } else {
@@ -200,6 +214,8 @@
     JS
     <script src="/regform/vendor/jquery/jquery.min.js"></script>
     <script src="/regform/js/main1.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
 </body>
 
 </html>

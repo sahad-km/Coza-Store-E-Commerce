@@ -152,86 +152,86 @@
                 </div>
             </nav>
         </header>
-        <%- include('../partials/flash') %>
+
+        <!-- ============================================================== -->
+        <!-- End Topbar header -->
+        <!-- ============================================================== -->
+        <!-- ============================================================== -->
+        <!-- Left Sidebar - style you can find in sidebar.scss  -->
+        <!-- ============================================================== -->
+        <aside class="left-sidebar" data-sidebarbg="skin5">
+            <!-- Sidebar scroll-->
+            <div class="scroll-sidebar">
+                <!-- Sidebar navigation-->
+                <nav class="sidebar-nav">
+                    <ul id="sidebarnav">
+                        <li class="sidebar-item">
+                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="/admin/dashboard"
+                                aria-expanded="false">
+                                <i class="mdi mdi-av-timer"></i>
+                                <span class="hide-menu">Dashboard</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="/admin/viewproducts"
+                                aria-expanded="false">
+                                <i class="mdi mdi-account-network"></i>
+                                <span class="hide-menu">Products</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="/admin/viewbrands"
+                                aria-expanded="false">
+                                <i class="mdi mdi-arrange-bring-forward"></i>
+                                <span class="hide-menu">Brands</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="/admin/viewbanner"
+                                aria-expanded="false">
+                                <i class="mdi mdi-border-none"></i>
+                                <span class="hide-menu">Banner</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a class="sidebar-link waves-effect waves-dark sidebar-link active" href="#" aria-expanded="false">
+                                <i class="mdi mdi-face"></i>
+                                <span class="hide-menu">User Details</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="/admin/vieworders"
+                                aria-expanded="false">
+                                <i class="mdi mdi-file"></i>
+                                <span class="hide-menu">Orders</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="/admin/viewcoupons"
+                                aria-expanded="false">
+                                <i class="mdi mdi-more"></i>
+                                <span class="hide-menu">Coupons</span>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+                <!-- End Sidebar navigation -->
+            </div>
+            <!-- End Sidebar scroll-->
+        </aside>
+        <!-- ============================================================== -->
+        <!-- End Left Sidebar - style you can find in sidebar.scss  -->
+        <!-- ============================================================== -->
+        <!-- ============================================================== -->
+        <!-- Page wrapper  -->
+        <!-- ============================================================== -->
+        <div class="page-wrapper">
             <!-- ============================================================== -->
-            <!-- End Topbar header -->
+            <!-- Bread crumb and right sidebar toggle -->
             <!-- ============================================================== -->
-            <!-- ============================================================== -->
-            <!-- Left Sidebar - style you can find in sidebar.scss  -->
-            <!-- ============================================================== -->
-            <aside class="left-sidebar" data-sidebarbg="skin5">
-                <!-- Sidebar scroll-->
-                <div class="scroll-sidebar">
-                    <!-- Sidebar navigation-->
-                    <nav class="sidebar-nav">
-                        <ul id="sidebarnav">
-                            <li class="sidebar-item">
-                                <a class="sidebar-link waves-effect waves-dark sidebar-link" href="/admin/dashboard"
-                                    aria-expanded="false">
-                                    <i class="mdi mdi-av-timer"></i>
-                                    <span class="hide-menu">Dashboard</span>
-                                </a>
-                            </li>
-                            <li class="sidebar-item">
-                                <a class="sidebar-link waves-effect waves-dark sidebar-link" href="/admin/viewproducts"
-                                    aria-expanded="false">
-                                    <i class="mdi mdi-account-network"></i>
-                                    <span class="hide-menu">Products</span>
-                                </a>
-                            </li>
-                            <li class="sidebar-item">
-                                <a class="sidebar-link waves-effect waves-dark sidebar-link" href="/admin/viewbrands"
-                                    aria-expanded="false">
-                                    <i class="mdi mdi-arrange-bring-forward"></i>
-                                    <span class="hide-menu">Brands</span>
-                                </a>
-                            </li>
-                            <li class="sidebar-item">
-                                <a class="sidebar-link waves-effect waves-dark sidebar-link" href="/admin/viewbanner"
-                                    aria-expanded="false">
-                                    <i class="mdi mdi-border-none"></i>
-                                    <span class="hide-menu">Banner</span>
-                                </a>
-                            </li>
-                            <li class="sidebar-item">
-                                <a class="sidebar-link waves-effect waves-dark sidebar-link" href="#"
-                                    aria-expanded="false">
-                                    <i class="mdi mdi-face"></i>
-                                    <span class="hide-menu">User Details</span>
-                                </a>
-                            </li>
-                            <li class="sidebar-item">
-                                <a class="sidebar-link waves-effect waves-dark sidebar-link" href="/admin/vieworders"
-                                    aria-expanded="false">
-                                    <i class="mdi mdi-file"></i>
-                                    <span class="hide-menu">Orders</span>
-                                </a>
-                            </li>
-                            <li class="sidebar-item">
-                                <a class="sidebar-link waves-effect waves-dark sidebar-link" href="/admin/viewcoupons"
-                                    aria-expanded="false">
-                                    <i class="mdi mdi-more"></i>
-                                    <span class="hide-menu">Coupons</span>
-                                </a>
-                            </li>
-                        </ul>
-                    </nav>
-                    <!-- End Sidebar navigation -->
-                </div>
-                <!-- End Sidebar scroll-->
-            </aside>
-            <!-- ============================================================== -->
-            <!-- End Left Sidebar - style you can find in sidebar.scss  -->
-            <!-- ============================================================== -->
-            <!-- ============================================================== -->
-            <!-- Page wrapper  -->
-            <!-- ============================================================== -->
-            <div class="page-wrapper">
-                <!-- ============================================================== -->
-                <!-- Bread crumb and right sidebar toggle -->
-                <!-- ============================================================== -->
-                <div class="page-breadcrumb">
-                    <div class="row">
+            <div class="page-breadcrumb">
+                <div class="row">
+                    <%- include('../partials/flash') %>
                         <div class="col-5 align-self-center">
                             <h4 class="page-title">Customers</h4>
                         </div>
@@ -247,62 +247,113 @@
                                 </nav>
                             </div>
                         </div>
-                    </div>
                 </div>
-                <div class="container-fluid">
-                    <div class="row">
-                        <div class="col-12">
-                            <table id="userList" class="table table-bordered">
-                                <thead>
+            </div>
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-12">
+                        <table id="userList" class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>SI No</th>
+                                    <th>Name</th>
+                                    <th>Email</th>
+                                    <th>Mobile Number</th>
+                                    <td>Verification</td>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody id="myTable">
+                                <% let count=1; userDisplay.forEach((user)=>{ %>
                                     <tr>
-                                        <th>SI No</th>
-                                        <th>Name</th>
-                                        <th>Email</th>
-                                        <th>Mobile Number</th>
-                                        <td>Verification</td>
-                                        <th>Status</th>
+                                        <td>
+                                            <%= count %>
+                                        </td>
+                                        <td>
+                                            <%= user.name %>
+                                        </td>
+                                        <td>
+                                            <%= user.email %>
+                                        </td>
+                                        <td>
+                                            +91 <%= user.mobNumber %>
+                                        </td>
+                                        <td style="color: green;">Verified</td>
+                                        <td>
+                                            <% if(user.blockStatus) {%>
+                                                    <button type="button" class="btn btn-primary"
+                                                    data-bs-toggle="modal" data-bs-target="#exampleModal<%=count%>">
+                                                    Unblock
+                                                </button>
+                                                <% }else{%>
+                                                        <button type="button" class="btn btn-primary"
+                                                        data-bs-toggle="modal" data-bs-target="#exampleModal<%=count+1%>">
+                                                        Block
+                                                    </button>
+                                                    <% } %>
+
+                                                        <!-- Modal -->
+                                                        <div class="modal fade" id="exampleModal<%=count%>" tabindex="-1"
+                                                            aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                            <div class="modal-dialog">
+                                                                <div class="modal-content">
+                                                                    <div class="modal-header">
+                                                                        <button type="button" class="btn-close"
+                                                                            data-bs-dismiss="modal"
+                                                                            aria-label="Close"></button>
+                                                                    </div>
+                                                                    <div class="modal-body">
+                                                                        Are you sure want to Unblock this User ?
+                                                                    </div>
+                                                                    <div class="modal-footer">
+                                                                        <button type="button" class="btn btn-secondary"
+                                                                            data-bs-dismiss="modal">Close</button>
+                                                                        <button onclick="blockUser('<%=user._id%>',false)" type="button"
+                                                                            class="btn btn-primary">Ok</button>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+
+                                                        <div class="modal fade" id="exampleModal<%=count+1%>" tabindex="-1"
+                                                            aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                            <div class="modal-dialog">
+                                                                <div class="modal-content">
+                                                                    <div class="modal-header">
+                                                                        
+                                                                        <button type="button" class="btn-close"
+                                                                            data-bs-dismiss="modal"
+                                                                            aria-label="Close"></button>
+                                                                    </div>
+                                                                    <div class="modal-body">
+                                                                        Are you sure want to Block this User ?
+                                                                    </div>
+                                                                    <div class="modal-footer">
+                                                                        <button type="button" class="btn btn-secondary"
+                                                                            data-bs-dismiss="modal">Close</button>
+                                                                        <button onclick=" blockUser('<%=user._id%>',true)" type="button"
+                                                                            class="btn btn-primary">Ok</button>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                        </td>
                                     </tr>
-                                </thead>
-                                <tbody id="myTable">
-                                    <% let count=1; userDisplay.forEach((user)=>{ %>
-                                        <tr>
-                                            <td>
-                                                <%= count %>
-                                            </td>
-                                            <td>
-                                                <%= user.name %>
-                                            </td>
-                                            <td>
-                                                <%= user.email %>
-                                            </td>
-                                            <td>
-                                                +91 <%= user.mobNumber %>
-                                            </td>
-                                            <td style="color: green;">Verified</td>
-                                            <td>
-                                                <% if(user.blockStatus) {%>
-                                                    <button id="unblockbtn" onclick="blockUser('<%=user._id%>',false)"
-                                                        class="btn btn-success m-2">Unblock</button>
-                                                    <% }else{%>
-                                                        <button id="blockbtn" onclick=" blockUser('<%=user._id%>',true)"
-                                                            class="btn btn-danger m-2">Block</button>
-                                                        <% } %>
-                                            </td>
-                                        </tr>
-                                        <% count++ }); %>
-                                </tbody>
-                            </table>
-                        </div>
+                                    <% count++ }); %>
+                            </tbody>
+                        </table>
                     </div>
-
                 </div>
-
-                <footer class="footer text-center">
-                    All Rights Reserved by Nice admin. Designed and Developed by
-                    <a href="https://www.wrappixel.com">WrapPixel</a>.
-                </footer>
 
             </div>
+
+            <footer class="footer text-center">
+                All Rights Reserved by Brototype Designed and Developed by
+                <a>SAHAD KM</a>.
+            </footer>
+
+        </div>
 
     </div>
     <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
