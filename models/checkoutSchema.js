@@ -69,7 +69,10 @@ const checkoutSchema = new mongoose.Schema({
 	},
 	status: {
 		type: String
-	}
+	},
+  couponCode:{
+    type:String
+  }
 }, { timestamps: true })
 
 

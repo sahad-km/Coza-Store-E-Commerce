@@ -10,7 +10,6 @@ const userSchema = new Schema({
     email: {
         type: String,
         required: true,
-        unique: true,
         trim: true
     },
     mobNumber: Number,
@@ -32,7 +31,11 @@ const userSchema = new Schema({
            pincode:String,
            country:String
         }
-    ]
+    ],
+    blockStatus:{
+        type:Boolean,
+        default:false
+    }
 },
 {
     timeseries:true

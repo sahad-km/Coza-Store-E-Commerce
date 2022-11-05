@@ -4,11 +4,16 @@ const Brand = require('../models/brandSchema');
 const Wishlist = require('../models/wishlistSchema');
 
 const addToCartView = async (req, res) => {
+    try{
     const proId = req.params.id;
+    console.log(proId)
     let variant = req.body.variant;
+    console.log(variant)
     let productId = new mongoose.Types.ObjectId(proId);
     let userId = req.session.userId;
-    const cart = await Cart.findOne({ userId });
+    console.log(userId)
+    const cart = await Cart.findOne({userId: userId });
+    console.log(cart);
     if (cart) {
         //cart exists for user
         let productExist = await Cart.findOne({ $and: [{ userId }, { cartItems: { $elemMatch: { productId , variant } } }] });
@@ -40,6 +45,9 @@ const addToCartView = async (req, res) => {
             res.send({ msg });
         }
     }
+}catch(err){
+    res.render('404NotFound');
+}
 }
 
 const displayCart = async (req, res) => {
@@ -71,15 +79,15 @@ const displayCart = async (req, res) => {
 }
 
 const changeProductQt = async (req,res) =>{
-    let cart = new mongoose.Types.ObjectId(req.body.cart);
+    const cart = new mongoose.Types.ObjectId(req.body.cart);
     console.log(cart)
-    let product = new mongoose.Types.ObjectId(req.body.product);
+    const product = new mongoose.Types.ObjectId(req.body.product);
     console.log(product)
-    let variant = req.body.variant;
+    const variant = req.body.variant;
     console.log(variant)
-    let count = parseInt(req.body.count);
+    const count = parseInt(req.body.count);
     console.log(count);
-    await Cart.findOneAndUpdate({ $and: [{ cart }, { "cartItems.productId": product }, {"cartItems.variant": variant}] },{ $inc: { "cartItems.$.quantity": count }});
+    await Cart.findOneAndUpdate({ $and: [{_id:cart }, { "cartItems.productId": product }, {"cartItems.variant": variant}] },{ $inc: { "cartItems.$.quantity": count }});
 }
 
 const cartItemDelete = async (req,res) =>{

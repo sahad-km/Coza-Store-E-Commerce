@@ -15,49 +15,76 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 </head>
 
-<body onload="document.form1.email.focus()">
+<body>
 
     <div class="main">
 
         <!-- Sign up form -->
         <section class="signup">
             <div class="container">
+                <%- include('./partials/flash') %>
                 <div class="signup-content">
                     <div class="signup-form">
                         <h2 class="form-title">Sign up</h2>
-                        <form method="POST" name="form1" action="/users/newuser" class="register-form"
-                            id="register-form">
+                        <div id="hideIt">
+                            <div class="form-group">
+                                <label for="email"><i class="zmdi zmdi-email"></i></label>
+                                <input type="email" name="email" id="emailfirst" placeholder="Your Email" required />
+                            </div>
+                            <div id="hiddendiv" style="display: none;">
+                                <input type="number" name="otp" id="otp" placeholder="Enter OTP here">
+                                <button onclick="validateOTP()"
+                                    style=" margin-top: 1em; border-radius: 1em; width: 100%; background-color: rgb(0, 0, 0); color: white; font-family: 'Poppins'; font-style: italic; font-weight: 300;">Verify
+                                    Email</button>
+                            </div>
+                            <div>
+                                <button id="otpsend" type="button" onclick="ValidateEmail()"
+                                    style=" border-radius: 1em; width: 100%; background-color: rgb(0, 0, 0); color: white; font-family: 'Poppins'; font-style: italic; font-weight: 300;">Send
+                                    OTP</button>
+                            </div>
+                        </div>
+
+                        <form style="display: none;" method="POST" name="form1" action="/users/newuser"
+                            class="register-form" id="register-form">
                             <div class="form-group">
                                 <label for="name"><i class="zmdi zmdi-account material-icons-name"></i></label>
                                 <input type="text" name="name" id="name" placeholder="Your Name" required />
                             </div>
                             <div class="form-group">
                                 <label for="email"><i class="zmdi zmdi-email"></i></label>
-                                <input type="email" name="email" id="email" placeholder="Your Email" required />
+                                <input type="email" name="email" id="email" readonly placeholder="Your Email"
+                                    required />
                             </div>
-                            <!-- <div id="otp" style="display: none;" class="form-group">
-                                <label for="otp"><i class="zmdi zmdi-apps"></i></label>
-                                <input type="password" name="otp" id="otp" placeholder="Enter OTP" required />
-                            </div> -->
                             <div class="form-group">
                                 <label for="mobNumber"><i class="zmdi zmdi-phone"></i></label>
                                 <input type="number" name="mobNumber" id="" placeholder="Mobile Number" required />
                             </div>
                             <div class="form-group">
                                 <label for="password"><i class="zmdi zmdi-lock"></i></label>
-                                <input type="password" name="password" id="pass" placeholder="Password" required />
+                                <!-- <input type="password" name="password" id="pass" placeholder="Password" required /> -->
+                                <input type="password" id="pass" name="password" placeholder="Password"
+                                    pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
+                                    title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters"
+                                    required>
                             </div>
                             <div class="form-group">
                                 <label for="re-pass"><i class="zmdi zmdi-lock-outline"></i></label>
                                 <input type="password" name="password1" id="re_pass"
                                     placeholder="Repeat your password" />
-                                    <input type="hidden" name="userType" value="user">
+                                <input type="hidden" name="userType" value="user">
                             </div>
                             <div class="form-group form-button">
                                 <input type="submit" name="signup" id="signup" class="form-submit" value="Register" />
                             </div>
-                            
+
                         </form>
+                        <div id="message">
+                            <h5>Password must contain the following:</h5>
+                            <p id="letter" class="invalid">A <b>lowercase</b> letter</p>
+                            <p id="capital" class="invalid">A <b>capital (uppercase)</b> letter</p>
+                            <p id="number" class="invalid">A <b>number</b></p>
+                            <p id="length" class="invalid">Minimum <b>8 characters</b></p>
+                        </div>
                     </div>
                     <div class="signup-image">
                         <figure><img src="/regform/images/signup-image.jpg" alt="sing up image"></figure>
@@ -67,47 +94,82 @@
             </div>
         </section>
     </div>
-
     <script>
-        // function otpVerify(email) {
-        //     console.log('here now...')
-        //     $.ajax({
-        //         url: '/users/otpsend',
-        //         data: {
-        //             email:email,
-        //         },
-        //         method: 'post',
-        //         success: (result) => {
-        //             alert(result)
-        //         }
-        //     })
-        // }
+        function otpVerify(email) {
+            console.log('here now...')
+            $.ajax({
+                url: '/users/otpsend',
+                data: {
+                    email: email,
+                },
+                method: 'post',
+                success: (result) => {
+                    alert(result)
+                }
+            })
+        }
 
-        // function ValidateEmail(input) {
 
-        //     var validRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+        function validateOTP() {
+            let input = document.getElementById("emailfirst").value;
+            let otp = document.getElementById("otp").value;
+            if (otp == null || otp == "") {
+                alert('Enter OTP to Register')
+            } else {
+                verification(input, otp)
+            }
+        }
 
-        //     if (input.value.match(validRegex)) {
-        //         document.form1.email.focus();
-        //         let x = document.getElementById("otp");
-        //             x.style.display = "block";
-        //         return true;
-        //     } else {
-        //         alert("Invalid email address!");
-        //         document.form1.email.focus();
-        //         return false;
-        //     }
+        function verification(email, otp) {
+            $.ajax({
+                url: '/users/verifyotp',
+                data: {
+                    email: email,
+                    otp: otp
+                },
+                method: 'post',
+                success: (response => {
+                    if (response.verify) {
+                        let emailfirst = document.getElementById("emailfirst").value;
+                        let x = document.getElementById("email");
+                        x.value = emailfirst;
+                        document.getElementById('hideIt').style.display = 'none';
+                        document.getElementById('register-form').style.display = 'block';
 
-        // }
-        // let a = document.getElementById('email').value;
-        // console.log(a);
-        // if (a == 'null') {
-        //     alert('Provide a email first')
-        // } else {
-        //     $("#mybtn").click(function () {
-        //         $("#otp").show();
-        //     });
-        // }
+                    }
+                })
+            })
+        }
+
+        function ValidateEmail() {
+
+            var validRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+
+            let input = document.getElementById("emailfirst").value;
+            if (input.match(validRegex)) {
+                let x = document.getElementById("otpsend");
+                x.style.display = "none";
+                document.getElementById("emailfirst").readOnly = true;
+                let y = document.getElementById("hiddendiv");
+                y.style.display = "block";
+                otpVerify(input)
+                return true;
+            } else {
+                alert("Invalid email address!");
+                document.emailfirst.focus();
+                return false;
+            }
+
+        }
+        let a = document.getElementById('email').value;
+        console.log(a);
+        if (a == 'null') {
+            alert('Provide a email first')
+        } else {
+            $("#mybtn").click(function () {
+                $("#otp").show();
+            });
+        }
         // Function to check Whether both passwords
         // is same or not.
         function checkPassword(form) {
@@ -129,16 +191,15 @@
                 form.password1.value = "";
                 return false;
             }
-
             // If same return True.
             else {
                 return true;
             }
         }
     </script>
-    <!-- JS -->
+    JS
     <script src="/regform/vendor/jquery/jquery.min.js"></script>
-    <script src="/regform/js/main.js"></script>
-</body><!-- This templates was made by Colorlib (https://colorlib.com) -->
+    <script src="/regform/js/main1.js"></script>
+</body>
 
 </html>

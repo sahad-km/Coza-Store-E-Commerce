@@ -51,7 +51,7 @@
 </head>
 
 <body class="animsition">
-
+    <%- include('./partials/flash') %>
     <!-- Header -->
     <div class="p-b-45">
         <h3 class="ltext-106 cl5 txt-center mt-5">
@@ -78,38 +78,69 @@
     </div>
 
 
+    <div id="coupondiv" class="flex-w flex-sb-m justify-content-center p-t-18 p-b-15 p-lr-40 p-lr-15-sm">
+        <div class="flex-w flex-m m-r-20 m-tb-5">
+            <input style="margin-left: 2em;" class="stext-104 cl2 plh4 size-117 bor13 p-lr-20 m-r-10 m-tb-5" type="text"
+                id="usercode" name="coupon" placeholder="Coupon Code">
+
+            <button type="" id="couponbtn" style="margin-left: 4em;" onclick="coupon()"
+                class=" flex-c-m stext-101 cl2 size-118 bg8 bor13 hov-btn3 p-lr-15 trans-04 pointer m-tb-5">
+                Apply coupon
+            </button>
+        </div>
+    </div>
+
+
     <!-- Shoping Cart -->
     <form action="" id="checkout-form">
         <div class="container-fluid pt-5">
             <div class="row px-xl-5">
                 <div class="col-lg-8">
-                    <div class="mb-4">
-                        <h4 class="font-weight-semi-bold mb-4">Billing Address</h4>
-                        <% user.address.forEach((p2)=>{ %>
-                            <div class="row">
-                                <div class="input-group">
-                                    <div class="input-group-prepend">
-                                        <div class="input-group-text">
-                                            <input name="address" type="radio" data-toggle="collapse"
-                                                aria-label="Radio button for following text input"
-                                                value="Name:<%=p2.fullName%>,<%=p2.houseName%>,<%=p2.city%>,<%=p2.state%>,<%=p2.country%>,<%=p2.pincode%>,Mobile Number:<%=p2.mobNumber%>,E-Mail:<%=p2.email%>"
-                                                required>
-                                        </div>
-                                    </div>
-                                    <input readonly class="form-control"
-                                        value="Name:<%=p2.fullName%>,<%=p2.houseName%>,<%=p2.city%>,<%=p2.state%>,<%=p2.country%>,<%=p2.pincode%>,Mobile Number:<%=p2.mobNumber%>,E-Mail:<%=p2.email%>"
-                                        aria-label="Text input with radio button">
-                                </div>
-                            </div>
-                            <% }) %>
-                    </div>
                     <!-- ///////////////////////////////////////////////////////////// -->
                     <!-- Button trigger modal -->
-                    <button type="button"
-                        class="flex-c-m stext-101 cl0 size-116 bg3 bor14 hov-btn3 p-lr-15 trans-04 pointer"
-                        data-toggle="modal" data-target="#exampleModal">
-                        + Add New Address
-                    </button>
+                    <div class="col-md-8 justify-content-center">
+                        <h4 class="font-weight-semi-bold mb-4">Billing Address</h4>
+                        <button style="margin: 2em;" type="button"
+                            class="flex-c-m stext-101 cl0 size-116 bg3 bor14 hov-btn3 p-lr-15 trans-04 pointer"
+                            data-toggle="modal" data-target="#exampleModal">
+                            + Add New Address
+                        </button>
+                    </div>
+
+                    <div class="mb-4">
+                        
+                        <% if(user.address.length>0){%>
+                            <% user.address.forEach((p2)=>{ %>
+                                <div class="row">
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text" style="border-radius: 1.5em;">
+                                                <input name="address" type="radio" data-toggle="collapse"
+                                                    aria-label="Radio button for following text input"
+                                                    value="Name:<%=p2.fullName%>,<%=p2.houseName%>,<%=p2.city%>,<%=p2.state%>,<%=p2.country%>,<%=p2.pincode%>,Mobile Number:<%=p2.mobNumber%>,E-Mail:<%=p2.email%>"
+                                                    required>
+                                                <p> <span style="font-weight: bold;"> Name:</span>
+                                                    <%=p2.fullName%>,<%=p2.houseName%>,<%=p2.city%>,<%=p2.state%>,
+                                                                    <%=p2.country%>,<%=p2.pincode%>, <br> <span
+                                                                                style="font-weight: bold;">Mobile
+                                                                                Number:</span>
+                                                                            <%=p2.mobNumber%>, <br> <span
+                                                                                    style="font-weight: bold;">
+                                                                                    E-Mail:</span>
+                                                                                <%=p2.email%>
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <% }) %>
+                                    <% }else{%>
+                                        <div>
+                                            <h5>You can't place Order without adding Addrress</h5>
+                                        </div>
+                                        <% } %>
+                    </div>
+                    
 
                     <!-- Modal -->
 
@@ -135,25 +166,52 @@
                                                 <% if(p.variant=='stock1' ){%>
                                                     ₹<%=p2.selling_price%>.00
                                                         <% }else if(p.variant=='stock2' ) {%>
-                                                            ₹<%=p2.selling_price + (p2.selling_price*10)/100%>.00
+                                                            ₹<%=p2.selling_price+2500%>.00
                                                                 <% }else if(p.variant=='stock3' ){%>
-                                                                    ₹<%=p2.selling_price+(p2.selling_price*12) /100%>.00
+                                                                    <%=p2.selling_price+3500%>.00
                                                                         <% }else if(p.variant=='stock4' ){%>
-                                                                            ₹<%=p2.selling_price+(p2.selling_price*15)
-                                                                                /100%>.00
+                                                                            ₹<%=p2.selling_price+5000%>.00
                                                                                 <% }else{ %>
                                                                                     ₹
-                                                                                    <%=p2.selling_price+(p2.selling_price*18)
-                                                                                        /100%>.00
+                                                                                    <%=p2.selling_price+6500%>.00
                                                                                         <% } %>X<%= p.itemQuantity %>
                                             </p>
-                                            <p>₹<%= p2.selling_price * p.itemQuantity %>.00</p>
-                                            <% total +=p2.selling_price * p.itemQuantity %>
-                                                <input id="val" type="hidden" name="cartId" value="<%=p._id%>">
+                                            <p>
+                                                <% if(p.variant=='stock1' ){%>
+                                                    ₹ <%=p2.selling_price* p.itemQuantity%>.00
+                                                        <% total +=p2.selling_price * p.itemQuantity %>
+                                                            <% }else if(p.variant=='stock2' ) {%>
+                                                                ₹<%=(p2.selling_price+2500) * p.itemQuantity%>.00
+                                                                    <% total +=(p2.selling_price+2500) * p.itemQuantity
+                                                                        %>
+                                                                        <% }else if(p.variant=='stock3' ){%>
+                                                                            ₹<%=(p2.selling_price+3500)*
+                                                                                p.itemQuantity%>.00
+                                                                                <% total +=(p2.selling_price+3500)*
+                                                                                    p.itemQuantity %>
+                                                                                    <% }else if(p.variant=='stock4' ){%>
+                                                                                        ₹<%=(p2.selling_price+5000)*
+                                                                                            p.itemQuantity%>.00
+                                                                                            <% total
+                                                                                                +=(p2.selling_price+5000)*
+                                                                                                p.itemQuantity %>
+                                                                                                <% }else{ %>
+                                                                                                    ₹
+                                                                                                    <%=(p2.selling_price+6500)*
+                                                                                                        p.itemQuantity%>
+                                                                                                        .00
+                                                                                                        <% total
+                                                                                                            +=(p2.selling_price+6500)*
+                                                                                                            p.itemQuantity
+                                                                                                            %>
+                                                                                                            <% } %>
+                                            </p>
+                                            <input id="val" type="hidden" name="cartId" value="<%=p._id%>">
                                         </div>
                                         <hr>
                                         <% }) %>
                                             <% }) %>
+
                                                 <hr class="mt-0">
                                                 <div class="d-flex justify-content-between mb-3 pt-1">
                                                     <h6 class="font-weight-medium">Subtotal</h6>
@@ -169,17 +227,16 @@
                                                             <h6 class="font-weight-medium">+ ₹40.00</h6>
                                                             <% } %>
                                                 </div>
+                                                <div class="d-flex justify-content-between mb-3 pt-1">
+                                                    <h6 class="font-weight-medium">Discount</h6>
+                                                    <h6 class="font-weight-medium">-₹ <span id="discount">0</span>.00</h6>
+                                                </div>
                         </div>
                         <div class="card-footer border-secondary bg-transparent">
                             <div class="d-flex justify-content-between mt-2">
                                 <h5 class="font-weight-bold">Total</h5>
-                                <% if(total>49999){%>
-                                    <h5 class="font-weight-bold">₹ <%=total%>.00</h5>
-                                    <input type="hidden" name="totalAmount" value="<%=total%>">
-                                    <% }else{ %>
-                                        <h5 class="font-weight-bold">₹ <%=total+40%>.00</h5>
-                                        <input type="hidden" name="totalAmount" value="<%=total+40%>">
-                                        <% } %>
+                                    <h5 class="font-weight-bold">₹<span id="grandtotal"><%=total%></span>.00</h5>
+                                    <input type="hidden"  name="totalAmount" value="<%=total%>">
                             </div>
                         </div>
                     </div>
@@ -203,12 +260,14 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="card-footer border-secondary bg-transparent">
-                            <button type="submit"
-                                class="flex-c-m stext-101 cl0 size-116 bg3 bor14 hov-btn3 p-lr-15 trans-04 pointer">
-                                PLACE ORDER NOW
-                            </button>
-                        </div>
+                        <% if(user.address.length>0){%>
+                            <div class="card-footer border-secondary bg-transparent">
+                                <button type="submit"
+                                    class="flex-c-m stext-101 cl0 size-116 bg3 bor14 hov-btn3 p-lr-15 trans-04 pointer">
+                                    PLACE ORDER NOW
+                                </button>
+                            </div>
+                            <% } %>
                     </div>
                 </div>
             </div>
@@ -295,6 +354,77 @@
             </span>
         </div>
 
+        <script>
+            function coupon() {
+                console.log('Hi 1')
+                const usercode = document.getElementById('usercode').value
+                let disc = document.getElementById('discount').innerHTML;
+                if(usercode.length>0){
+                $.ajax({
+                    url: '/users/applyCoupon/',
+                    data:{
+                        code:usercode
+                    },
+                    method: 'post',
+                    success:(response)=>{
+                        console.log('hi last')
+                        discount = response.success
+                        console.log(discount)
+                        console.log(parseInt(document.getElementsByClassName('grandtotal').innerHTML));
+                        let total = document.getElementById('grandtotal').innerHTML;
+                        if(total < 49999){
+                            total= total+40;
+                        }
+                        if (parseInt(total) > 20000) {
+                            console.log("inside 1")
+                            if (parseInt(document.getElementById('discount').innerHTML) > 0) {
+                                console.log("inside 2");
+                                document.getElementById('coupondiv').style.display = 'none';
+                                alert('You already used a Coupon');
+                            } else {
+                                console.log("inside 2");
+                                document.getElementById('discount').innerHTML = discount
+                                document.getElementById('grandtotal').innerHTML = parseInt(document.getElementById('grandtotal').innerHTML) - parseInt(discount)
+                                document.getElementById('coupondiv').style.display = 'none';
+                            }
+                        }
+                    }
+                })
+            }
+
+
+
+
+
+
+
+                // fetch('/users/applyCoupon/' + usercode, {
+                //     method: 'post',
+                //     headers: {
+                //         'Content-type': 'application/json',
+                //         body: JSON.stringify({ jfd: disc })
+                //     }
+
+                // })
+                //     .then(res => res.json())
+                //     .then(data => {
+                //         console.log('hi last')
+                //         discount = data.success
+                //         console.log(discount)
+
+                //         if (parseInt(document.getElementById('grandtotal').innerHTML) > 20000) {
+                //             if (parseInt(document.getElementById('discount').innerHTML) > 0) {
+                //                 document.getElementById('couponbtn').disabled = true;
+                //             } else {
+                //                 document.getElementById('discount').innerHTML = discount
+                //                 document.getElementById('grandtotal').innerHTML = parseInt(document.getElementById('grandtotal').innerHTML) - parseInt(discount)
+                //                 console.log(document.getElementById('grandtotal').innerHTML)
+                //             }
+                //         }
+                //     })
+            }
+        </script>
+
         <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
         <!--===============================================================================================-->
         <script src="/vendor/jquery/jquery-3.2.1.min.js"></script>
@@ -323,7 +453,8 @@
                     data: $('#checkout-form').serialize(),
                     success: (response) => {
                         if (response.codSuccess) {
-                            // location.href = '/users/order-success/cod'
+                            const id = response.orderId
+                            location.href = '/users/order-success/' + id
                         }
                         else {
                             razorPayment(response.options, response.userDetails, response.orderId)
@@ -344,24 +475,24 @@
                     "order_id": orderId,
                     "handler": function (response) {
                         paymentSuccess(response, payDetails, userDetails, orderId);
-                },
-                "prefill": {
-                    "name": userDetails.fullName,
+                    },
+                    "prefill": {
+                        "name": userDetails.fullName,
                         "email": userDetails.email,
-                            "contact": userDetails.mobile
-                },
-                "notes": {
-                    "address": userDetails.address
-                },
-                "theme": {
-                    "color": "#3399cc"
-                }
-            };
-            let rzp1 = new Razorpay(options);
-            rzp1.on('payment.failed', function (response) {
-                // window.location = '/gp/checkout/paymentFail';
-            });
-            rzp1.open();
+                        "contact": userDetails.mobile
+                    },
+                    "notes": {
+                        "address": userDetails.address
+                    },
+                    "theme": {
+                        "color": "#3399cc"
+                    }
+                };
+                let rzp1 = new Razorpay(options);
+                rzp1.on('payment.failed', function (response) {
+                    // window.location = '/gp/checkout/paymentFail';
+                });
+                rzp1.open();
                 // e.preventDefault();
             }
 
@@ -378,10 +509,10 @@
                     },
                     method: 'post',
                     success: (response) => {
-                        let id=response.id;
+                        let id = response.id;
                         console.log(id)
                         if (response.paymentOk) {
-                            location.href = '/users/order-success/'+id
+                            location.href = '/users/order-success/' + id
                         }
                         else {
                             alert('Payment Unsuccessfull')

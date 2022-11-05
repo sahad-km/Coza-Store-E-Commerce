@@ -31,8 +31,9 @@ const placeOrder = async (req, res) => {
   });
   let orderId = checkout._id
   await checkout.save();
+  await Cart.deleteOne({_id:req.body.cartId})
   if (req.body.payment == 'cod') {
-    res.send({ codSuccess: true })
+    res.send({ codSuccess: true,orderId })
   } else {
     const user = await User.findById(userId);
     const fullName = user.name

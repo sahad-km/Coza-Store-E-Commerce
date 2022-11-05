@@ -6,58 +6,125 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Orders</title>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
-    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <link rel="icon" type="image/png" href="../images/icons/favicon.png" />
+  <!--===============================================================================================-->
+  <link rel="stylesheet" type="text/css" href="../vendor/bootstrap/css/bootstrap.min.css">
+  <!--=========================================================================================-->
+  <link rel="stylesheet" type="text/css" href="../fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+  <!--=========================================================================================-->
+  <link rel="stylesheet" type="text/css" href="../fonts/iconic/css/material-design-iconic-font.min.css">
+  <!--============================================================================================-->
+  <link rel="stylesheet" type="text/css" href="../fonts/linearicons-v1.0.0/icon-font.min.css">
+  <!--============================================================================================-->
+  <link rel="stylesheet" type="text/css" href="../vendor/animate/animate.css">
+  <!--============================================================================================-->
+  <link rel="stylesheet" type="text/css" href="../vendor/css-hamburgers/hamburgers.min.css">
+  <!--============================================================================================-->
+  <link rel="stylesheet" type="text/css" href="../vendor/animsition/css/animsition.min.css">
+  <!--============================================================================================-->
+  <link rel="stylesheet" type="text/css" href="../vendor/select2/select2.min.css">
+  <!--============================================================================================-->
+  <link rel="stylesheet" type="text/css" href="../vendor/perfect-scrollbar/perfect-scrollbar.css">
+  <!--===============================================================================================-->
+  <link rel="stylesheet" type="text/css" href="../stylesheets/util.css">
+  <link rel="stylesheet" type="text/css" href="../stylesheets/main.css">
+  <!--===============================================================================================-->
+  <style>
+      a {
+          color: inherit;
+          text-decoration: inherit
+      }
+  </style>
 </head>
 
 <body>
-  <div class="container-fluid" style="background-color: green;display: flex;
-  align-items: center;
-  justify-content: center;" >
-      <% productDetails.forEach((p)=>{%>
-        <% p.product.forEach((p2)=>{%>
-          <div class="card mb-5" style="max-width: 50%;">
-            <div class="row no-gutters">
-              <div class="col-md-2">
-                <img src="<%=p2.image[0].url%>" class="card-img" alt="No Image Found">
-              </div>
-              <div class="col-md-8">
-                <div class="card-body">
-                  <h5 class="card-title">Name: <%=p2.product_name%>
-                  </h5>
-                  <p class="card-text">
-                    <%=p2.selling_price%>
-                  </p>
-                  <p class="card-text">Variant:
-                    <% if(p.variant=='stock1' ){%>
-                      4GB RAM<br>64GB ROM
-                      <% }else if(p.variant=='stock2' ) {%>
-                        4GB RAM<br>128GB ROM
-                        <% }else if(p.variant=='stock3' ){%>
-                          6GB RAM<br>128GB ROM
-                          <% }else if(p.variant=='stock4' ){%>
-                            8GB RAM<br>256GB ROM
-                            <% }else{ %>
-                              12GB RAM<br>1TB ROM
-                              <% } %>
-                  </p>
-                  <p class="card-text"><small class="text-muted">Quantity: <%=p.itemQuantity%></small></p>
+            <%- include('./partials/navbar') %>
+            <div class="container-fluid p-5 mt-5" >
+              <div class="container">
+                <%- include('./partials/flash') %>
+                <div style="margin-bottom: 1em;" class="bread-crumb flex-w">
+                    <a href="/pages/home" class="stext-109 cl8 hov-cl1 trans-04">
+                        Home
+                        <i class="fa fa-angle-right m-l-9 m-r-10" aria-hidden="true"></i>
+                    </a>
+                    <span class="stext-109 cl4">
+                       Ordered Products
+                    </span>
                 </div>
+            </div>
+              <div class="row">
+                <% productDetails.forEach((p)=>{%>
+                  <% p.product.forEach((p2)=>{%>
+                <div class="col-md-3">
+                  <div class="card h-100 shadow-sm"> <img
+                      src="<%=p2.image[0].url%>"
+                      class="card-img-top" alt="...">
+                    <div style="text-align: center;" class="card-body">
+                      <h5> <span style="color: black;" > Name:</span> <%=p2.product_name%></h5>
+                      <div class="clearfix mb-3"><span class="float-end price-hp"><span style="color: black;" > Price:</span><%=p2.selling_price%>.00</span> </div>
+                      <h6 class="card-title"><span style="color: black;" > Variant:</span> <% if(p.variant=='stock1' ){%>
+                        4GB RAM<br>64GB ROM
+                        <% }else if(p.variant=='stock2' ) {%>
+                          4GB RAM<br>128GB ROM
+                          <% }else if(p.variant=='stock3' ){%>
+                            6GB RAM<br>128GB ROM
+                            <% }else if(p.variant=='stock4' ){%>
+                              8GB RAM<br>256GB ROM
+                              <% }else{ %>
+                                12GB RAM<br>1TB ROM
+                                <% } %></h6>
+                                <p><span style="color: black;" > Quantity:</span> <%=p.itemQuantity%></p>
+                    </div>
+                  </div>
+                </div>
+                <% }) %>
+                <% }) %>
               </div>
             </div>
-          </div>
-           <% }) %>
-           <% }) %>
-  </div>
-  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-    integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-    crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js"
-    integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
-    crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js"
-    integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
-    crossorigin="anonymous"></script>
-</body>
-
-</html>
+          <div class="btn-back-to-top" id="myBtn">
+            <span class="symbol-btn-back-to-top">
+                <i class="zmdi zmdi-chevron-up"></i>
+            </span>
+        </div>
+        <%- include('./partials/footer') %>
+        <script src="../vendor/jquery/jquery-3.2.1.min.js"></script>
+        <!--===============================================================================================-->
+        <script src="../vendor/animsition/js/animsition.min.js"></script>
+        <!--===============================================================================================-->
+        <script src="../vendor/bootstrap/js/popper.js"></script>
+        <script src="../vendor/bootstrap/js/bootstrap.min.js"></script>
+        <!--===============================================================================================-->
+        <script src="../vendor/select2/select2.min.js"></script>
+    
+        <script>
+            $(".js-select2").each(function () {
+                $(this).select2({
+                    minimumResultsForSearch: 20,
+                    dropdownParent: $(this).next('.dropDownSelect2')
+                });
+            })
+        </script>
+        <script src="../vendor/MagnificPopup/jquery.magnific-popup.min.js"></script>
+    
+        <script src="../vendor/perfect-scrollbar/perfect-scrollbar.min.js"></script>
+        <script>
+            $('.js-pscroll').each(function () {
+                $(this).css('position', 'relative');
+                $(this).css('overflow', 'hidden');
+                var ps = new PerfectScrollbar(this, {
+                    wheelSpeed: 1,
+                    scrollingThreshold: 1000,
+                    wheelPropagation: false,
+                });
+    
+                $(window).on('resize', function () {
+                    ps.update();
+                })
+            });
+        </script>
+        <!--===============================================================================================-->
+        <script src="../js/main.js"></script>
+    
+    </body>
+    
+    </html>

@@ -37,7 +37,7 @@
     </style>
 </head>
 
-<body class="animsition">
+<body  class="animsition" onload="calculation();">
     <%- include('./partials/navbar') %>
 
     <!-- Header -->
@@ -49,6 +49,7 @@
 
     <!-- breadcrumb -->
     <div class="container">
+        <%- include('./partials/flash') %>
         <div class="bread-crumb flex-w p-l-25 p-r-15 p-t-30 p-lr-0-lg">
             <a href="/pages/home" class="stext-109 cl8 hov-cl1 trans-04">
                 Home
@@ -92,20 +93,18 @@
                                                     <%= p2.product_name %>
                                                 </a>
                                             </td>
-                                            <td style="text-align: center;">
+                                            <td id="amount" style="text-align: center;">
                                                 <% if(p.variant=='stock1' ){%>
                                                     ₹<%=p2.selling_price%>.00
                                                         <% }else if(p.variant=='stock2' ) {%>
-                                                            ₹<%=p2.selling_price+(p2.selling_price*10) /100%>.00
+                                                            ₹<%=p2.selling_price+2500%>.00
                                                                 <% }else if(p.variant=='stock3' ){%>
-                                                                    ₹<%=p2.selling_price+(p2.selling_price*12) /100%>.00
+                                                                    <%=p2.selling_price+3500%>.00
                                                                         <% }else if(p.variant=='stock4' ){%>
-                                                                            ₹<%=p2.selling_price+(p2.selling_price*15)
-                                                                                /100%>.00
+                                                                            ₹<%=p2.selling_price+5000%>.00
                                                                                 <% }else{ %>
                                                                                     ₹
-                                                                                    <%=p2.selling_price+(p2.selling_price*18)
-                                                                                        /100%>.00
+                                                                                    <%=p2.selling_price+6500%>.00
                                                                                         <% } %>
                                             </td>
                                             <td style="text-align: center;">
@@ -123,7 +122,7 @@
                                             </td>
                                             <td style="text-align: center;">
                                                 <div class="wrap-num-product flex-w m-l-auto m-r-0">
-                                                    <button <%=p.itemQuantity==1 ? 'disabled' :''%> onclick="changeQuantity('<%=p._id%>','<%=p2._id%>','-1','<%=p.variant%>')"><i
+                                                    <button <%=p.itemQuantity==1 ? 'disabled' :'';%>onclick="changeQuantity('<%=p._id%>','<%=p2._id%>','-1','<%=p.variant%>')"><i
                                                                     style="padding: 1em;"
                                                                     class="fs-16 zmdi zmdi-minus"></i>
                                                     </button>
@@ -134,13 +133,26 @@
                                                             class="fs-16 zmdi zmdi-plus"></i></button>
                                                 </div>
                                             </td>
-                                            <td style="text-align: center;">
-                                                ₹<%= p2.selling_price * p.itemQuantity %>.00
+                                            <td id="price" style="text-align: center;">
+                                                <% if(p.variant=='stock1' ){%>
+                                                    ₹ <%=p2.selling_price* p.itemQuantity%>.00
                                                     <% total +=p2.selling_price * p.itemQuantity %>
+                                                        <% }else if(p.variant=='stock2' ) {%>
+                                                            ₹<%=(p2.selling_price+2500) * p.itemQuantity%>.00
+                                                            <% total +=(p2.selling_price+2500) * p.itemQuantity %>
+                                                                <% }else if(p.variant=='stock3' ){%>
+                                                                    ₹<%=(p2.selling_price+3500)* p.itemQuantity%>.00
+                                                                    <% total +=(p2.selling_price+3500)* p.itemQuantity %>
+                                                                        <% }else if(p.variant=='stock4' ){%>
+                                                                            ₹<%=(p2.selling_price+5000)* p.itemQuantity%>.00
+                                                                                <% total +=(p2.selling_price+5000)* p.itemQuantity %>
+                                                                                <% }else{ %>
+                                                                                    ₹<%=(p2.selling_price+6500)* p.itemQuantity%>.00
+                                                                                        <% total +=(p2.selling_price+6500)* p.itemQuantity %>
+                                                                                        <% } %>
                                             </td>
                                             <td style="text-align: center;">
-                                                <button onclick="removeProduct('<%=p2._id%>','<%=p.variant%>')"
-                                                    class="btn btn-danger m-2">Delete</button>
+                                                <button style="padding: 1em;" onclick="removeProduct('<%=p2._id%>','<%=p.variant%>')"><i style="color: black; font-weight: bold; " class="zmdi zmdi-close"></i></button>
                                             </td>
                                         </tr>
                                         <% }) %>
@@ -148,24 +160,12 @@
 
                         </table>
                     </div>
-
-                    <div class="flex-w flex-sb-m bor15 p-t-18 p-b-15 p-lr-40 p-lr-15-sm">
-                        <div class="flex-w flex-m m-r-20 m-tb-5">
-                            <input class="stext-104 cl2 plh4 size-117 bor13 p-lr-20 m-r-10 m-tb-5" type="text"
-                                name="coupon" placeholder="Coupon Code">
-
-                            <div
-                                class="flex-c-m stext-101 cl2 size-118 bg8 bor13 hov-btn3 p-lr-15 trans-04 pointer m-tb-5">
-                                Apply coupon
-                            </div>
-                        </div>
-                    </div>
                 </div>
-            </div>
-
+            </div> 
         </div>
         <div class="row ml-5 justify-content-center">
             <div class="col-md-6">
+                <% if(viewCart.length >0){%> 
                 <div style="padding: 1.5em; margin-top: 5em; border: 1px solid #e6e6e6;">
                     <h4 class="mtext-109 cl2 p-b-30">
                         Cart Summary
@@ -180,7 +180,7 @@
 
                         <div class="size-209">
                             <span class="mtext-110 cl2">
-                                ₹<%=total%>.00
+                                ₹<%=Math.round(total)%>.00
                             </span>
                         </div>
                     </div>
@@ -232,25 +232,25 @@
                         <div class="size-209 p-t-1">
                                 <% if(total>49999) {%> 
                                 <span class="mtext-110 cl2">
-                                    ₹<%=total%>.00
+                                    ₹<%=Math.round(total)%>.00
                                 </span>
                                 <% }else{%> 
                                 <span class="mtext-110 cl2">
-                                    ₹<%=total + 40%>.00
+                                    ₹<%=Math.round(total + 40)%>.00
                                 </span>
                                 <% } %> 
                         </div>
                     </div>
-
+                   
                     <form action="/users/checkoutview/<%=viewCart[0]._id%>" method="post"><button
                             class="flex-c-m stext-101 cl0 size-116 bg3 bor14 hov-btn3 p-lr-15 trans-04 pointer">
                             Proceed to Checkout
                         </button>
                     </form>
                 </div>
-
+                <% } %>
             </div>
-        </div>
+        </div> 
     </div>
     <!-- </form> -->
 
@@ -286,6 +286,7 @@
             })
         </script>
         <script>
+
             function changeQuantity(cartId, proId, count,variant) {
                 $.ajax({
                     url: '/users/change-product-qt',
@@ -308,7 +309,8 @@
                         variant:variant
                     },
                     method: 'post',
-                    success: location.reload()
+                    success:
+                     location.reload()
                 })
             }
 

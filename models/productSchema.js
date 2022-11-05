@@ -38,7 +38,11 @@ const productSchema = new Schema({
             url: String,
             filename: String
         }
-    ]
+    ],
+    deleteStatus:{
+        type:Boolean,
+        default:false
+    }
 },{
     timestamps:true
 });

@@ -27,7 +27,6 @@ app.use(express.static(path.join(__dirname,'public')));
 app.use(methodOverride('_method'));
 
 
-const userOTPVerification = require('./models/userOtpVerify')
 const pages = require('./routes/pages');
 const users = require('./routes/users');
 const adminPages=require('./routes/admin_pages');
@@ -59,14 +58,19 @@ const store = new MongoDBStore({
     next();
   });
 
+app.use((req,res,next)=>{
+  res.locals.success = req.flash('success')
+  res.locals.error = req.flash('error')
+  next();
+})
 
 app.use('/admin',adminPages);
 app.use('/users',users);
 app.use('/pages',pages);
 
-// app.get('*', (req, res, next) => {
-//   res.send("404, Not found").status(404);
-// });
+app.get('*', (req, res, next) => {
+  res.render("404NotFound")
+});
 
 
 app.listen(3000,()=>console.log('server listening on port 3000...'));

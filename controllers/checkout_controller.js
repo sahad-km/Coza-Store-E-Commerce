@@ -35,17 +35,22 @@ const checkoutPage = async(req,res)=> {
 
 
 const successPage = async(req,res)=>{
+    try{
     const checkoutId = req.params.id
     const userId = req.session.userId;
     const userDetails = await User.findById(userId);
     const checkoutDetails = await Checkout.findById(checkoutId)
-
-    res.render('order_success',{userDetails,checkoutDetails})
+    res.render('order_success',{userDetails,checkoutDetails});
+    }catch(err){
+        res.render('404NotFound');
+    }
 }
 
-const successPageCod = async(req,res) => {
-    res.render('order_success');
-}
+// const successPageCod = async(req,res) => {
+
+//     const userIdc= req.session.userId;
+//     res.render('order_success');
+// }
 
 
-module.exports = {checkoutPage,successPage,successPageCod};
+module.exports = {checkoutPage,successPage};

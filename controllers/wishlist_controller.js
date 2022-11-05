@@ -5,6 +5,7 @@ const Cart = require('../models/cartSchema');
 
 
 const addToWishlist = async (req,res) => {
+    try{
     let variant = req.body.variant;
     const proId = req.params.id;
     console.log('pro id'+proId)
@@ -40,6 +41,9 @@ const addToWishlist = async (req,res) => {
             res.send({ msg });
         }
     }
+}catch(err){
+    res.render('404NotFound')
+}
 }
 
 const displayWishlist = async (req, res) => {

@@ -43,7 +43,7 @@
 
     <!-- Header -->
     <div class="p-b-45">
-        <h3 class="ltext-106 cl5 txt-center">
+        <h3 class="ltext-106 cl5 txt-center" style="margin-top: 3em;">
             Your Wishlist
         </h3>
     </div>
@@ -65,7 +65,9 @@
     <!-- Whislist -->
     <form class="bg0 p-t-75 p-b-85">
         <div class="container">
-            <div class="row">
+            <%- include('./partials/flash') %>
+            <div class="row justify-content-center">
+                <% if(wishlist.length >0){%>
                 <div class="col-lg-12  m-b-50">
                     <div class="m-l-25 m-r--38 m-lr-0-xl">
                         <div class="wrap-table-shopping-cart">
@@ -77,7 +79,7 @@
                                     <th class="column-3">Price</th>
                                     <th class="column-5"></th>
                                     <th class="column-6"></th>
-                                </tr>
+                                </tr> 
                                 <% wishlist.forEach((p)=>{ %>
                                     <% p.product.forEach((p2)=>{ %>
                                         <tr class="table_row">
@@ -111,17 +113,20 @@
                                                 <button onclick="toCart('<%=p2._id%>','<%=p.variant%>')" class="btn btn-danger m-2">Add to Cart</button>
                                             </td>
                                             <td>
-                                                <button onclick="removeProduct('<%=p2._id%>','<%=p.variant%>')"
-                                                    class="btn btn-danger m-2">Remove</button>
+                                                <button style="padding: 1.5em; margin-left: 2em;" onclick="removeProduct('<%=p2._id%>','<%=p.variant%>')"><i style="color: black; font-weight: bold; " class="zmdi zmdi-close"></i></button>
                                             </td>
                                         </tr>
                                         <% }) %>
-                                            <% }) %>
+                                        <% }) %>
+                                            
 
                             </table>
                         </div>
                     </div>
                 </div>
+                <% }else{%> 
+                    <h3>Nothing to show in your Wishlist</h3>
+                <% } %>
             </div>
         </div>
     </form>

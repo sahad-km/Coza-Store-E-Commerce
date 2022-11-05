@@ -31,7 +31,11 @@ const insertDetails = async (req,res) => {
 }
 
 const loginLoad = (req,res)=>{
+    if (req.session.userId) {
+        res.redirect('/pages/home')
+    }else {
     res.render('login',{title:'Login',msg:'',errmsg:''});
+    }
 }
 const loginCheck = async (req,res)=> {
     const { email, password } = req.body;
@@ -42,8 +46,12 @@ const loginCheck = async (req,res)=> {
         if (validPassword) {
             req.session.userType = 'user';
             req.session.userId = user._id;
-            console.log("logged in");
+            if(user.blockStatus){
+                req.flash('error','You are blocked by the Admin');
+                res.redirect('/users/login');
+            }else{
             res.redirect('/pages/home');
+            }
         }
         else {
             req.flash('error', 'invalid email or password');
@@ -58,8 +66,11 @@ const loginCheck = async (req,res)=> {
 }
 const loadProfile = async (req,res) =>{
     let userId= (req.session.userId);
+    const brands = await Brand.find({});
+    const cartCount = await Cart.aggregate([{$match:{userId}},{$project:{count:{$size:"$cartItems"}}}]);
+    const wishlistCount = await Wishlist.aggregate([{$match:{userId}},{$project:{count:{$size:"$wishlistItems"}}}]);
     const userDetails = await User.findById(userId);
-    res.render('profile',{userDetails})
+    res.render('profile',{userDetails,brands,cartCount,wishlistCount});
 }
 
 const addingAddress = async (req,res)=>{
@@ -73,17 +84,21 @@ const addingAddress = async (req,res)=>{
 }
 
 const removeAddress = async(req,res)=>{
+    try{
     const addressId = req.params.id
     const userId = req.session.userId;
     await User.updateOne({_id:userId},{$pull:{address:{"_id":addressId}}});
     req.flash('success','Address removed Successfully');
-    res.redirect('/users/viewprofile')
+    res.redirect('/users/viewprofile');
+    }catch(err){
+        res.render('404NotFound');
+    }
 }
 
 const orderHistory = async(req,res)=>{
     const userId = req.session.userId;
     const brands = await Brand.find({});
-    const orderHistory = await Checkout.find({userId:userId})
+    const orderHistory = await Checkout.find({userId:userId}).sort({createdAt: -1})
     const cartCount = await Cart.aggregate([{$match:{userId}},{$project:{count:{$size:"$cartItems"}}}]);
     const wishlistCount = await Wishlist.aggregate([{$match:{userId}},{$project:{count:{$size:"$wishlistItems"}}}]);
     let productDetails = await Checkout.aggregate([{ $match: {userId:userId } },
@@ -104,9 +119,18 @@ const orderHistory = async(req,res)=>{
                 foreignField: '_id',
                 as: 'product'
             }
-        }])
+        },
+    ])
         // console.log(productDetails)
     res.render('order_history',{cartCount,wishlistCount,brands,orderHistory,productDetails})
+}
+
+const changeStatus = async (req,res) =>{
+    let orderId = new mongoose.Types.ObjectId(req.body.orderId);
+    const id = await Checkout.findById({_id:orderId});
+    let orderStatusId = id.orderStatus[0]._id;
+    await Checkout.findOneAndUpdate({ $and: [{_id: orderId }, { "orderStatus._id": orderStatusId }] },{ $set: { "orderStatus.$.type": 'cancelled' }});
+    res.redirect('/admin/vieworders')
 }
 
 
@@ -130,8 +154,6 @@ const orderedProducts = async(req,res)=>{
     let {id} =req.query;
     id = mongoose.Types.ObjectId(id)
     // const checkoutId = mongoose.Types.ObjectId(req.params.id.trim());
-    console.log("hi",id)
-    
     const brands = await Brand.find({});
     const cartCount = await Cart.aggregate([{$match:{userId}},{$project:{count:{$size:"$cartItems"}}}]);
     const wishlistCount = await Wishlist.aggregate([{$match:{userId}},{$project:{count:{$size:"$wishlistItems"}}}]);
@@ -154,31 +176,24 @@ const orderedProducts = async(req,res)=>{
                 foreignField: '_id',
                 as: 'product'
             }
-        }])
-        console.log(productDetails)
-        res.render('ordered_product',{productDetails})
+        },
+        
+        
+    ])
+        res.render('ordered_product',{productDetails,brands,cartCount,wishlistCount})
     }
     catch(err){
-        console.log(err)
+        res.send(err);
     }
 }
 
-const sessionCheck = (req,res,next) => {
-    if(req.session.userId) {
-        if(req.session.userType == 'user') {
-            res.redirect('/pages/home');
-        }else {
-            res.redirect('/admin/dashboard');
-        }
-    }else {
-        next();
-    }
-}
+
 const logout = (req,res)=> {
     req.session.destroy();
-    res.redirect('/');
+    res.redirect('/pages/home');
 }
 
 
 
-module.exports = {registerLoad,insertDetails,loginLoad,loginCheck,loadProfile,addingAddress,removeAddress,orderHistory,orderedProducts,sessionCheck,logout};
+module.exports = {registerLoad,insertDetails,loginLoad,loginCheck,loadProfile,addingAddress,removeAddress,orderHistory,
+    changeStatus,orderedProducts,logout};
