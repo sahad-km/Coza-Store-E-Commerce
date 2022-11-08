@@ -2,7 +2,7 @@ const express = require('express');
 const pageController = require("../controllers/page_controller");
 const router = express.Router();
 
-router.get('/home',pageController.pageLoad);
+router.get('/',pageController.pageLoad);
 router.get('/viewproduct/:id',pageController.viewProduct);
 router.get('/allproducts',pageController.allProducts);
 

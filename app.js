@@ -66,7 +66,7 @@ app.use((req,res,next)=>{
 
 app.use('/admin',adminPages);
 app.use('/users',users);
-app.use('/pages',pages);
+app.use('/',pages);
 
 app.get('*', (req, res, next) => {
   res.render("404NotFound")

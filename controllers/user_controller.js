@@ -32,14 +32,13 @@ const insertDetails = async (req,res) => {
 
 const loginLoad = (req,res)=>{
     if (req.session.userId) {
-        res.redirect('/pages/home')
+        res.redirect('/')
     }else {
     res.render('login',{title:'Login',msg:'',errmsg:''});
     }
 }
 const loginCheck = async (req,res)=> {
     const { email, password } = req.body;
-    console.log(req.body);
     const user = await User.findOne({ email });
     if (user) {
         const validPassword = await bcrypt.compare(password, user.password);
@@ -50,7 +49,7 @@ const loginCheck = async (req,res)=> {
                 req.flash('error','You are blocked by the Admin');
                 res.redirect('/users/login');
             }else{
-            res.redirect('/pages/home');
+            res.redirect('/');
             }
         }
         else {
@@ -190,7 +189,7 @@ const orderedProducts = async(req,res)=>{
 
 const logout = (req,res)=> {
     req.session.destroy();
-    res.redirect('/pages/home');
+    res.redirect('/');
 }
 
 
