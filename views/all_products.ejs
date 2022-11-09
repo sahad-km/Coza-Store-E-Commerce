@@ -124,9 +124,11 @@
                           <a href="/viewproduct/<%= product._id %>"><button
                               style="padding-left: 4em; padding-right: 4em; margin-left: 2%; "
                               class="btn btn-outline-primary btn-sm mt-2 " type="button">View Product</button></a>
-                          <button class="btn btn-outline-primary btn-sm mt-2" type="button">
+                              <% if(user){%> 
+                          <button onclick="wishlist('<%=product._id%>')" class="btn btn-outline-primary btn-sm mt-2" type="button">
                             Add to wishlist
                           </button>
+                          <% } %> 
                         </div>
                   </div>
                 </div>
@@ -160,6 +162,18 @@
   }
 }
   </script>
+  <script>
+    function wishlist(proId){
+        let res='stock1'
+            $.ajax({
+                url: '/users/add-to-wishlist/'+proId,
+                data: {variant:res,
+                },
+                method: 'post',
+                success: location.reload()
+            })
+        }
+</script>
   <!--===============================================================================================-->
   <script src="../vendor/jquery/jquery-3.2.1.min.js"></script>
   <!--===============================================================================================-->

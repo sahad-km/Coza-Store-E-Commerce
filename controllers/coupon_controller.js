@@ -56,7 +56,6 @@ const applyCoupon = async(req,res) => {
             const discount = code[0].discount    
             res.send({success:discount})
         } else {
-            console.log(4);
             req.flash('error','Invalid code')
             res.redirect('/users/viewcart')
         }

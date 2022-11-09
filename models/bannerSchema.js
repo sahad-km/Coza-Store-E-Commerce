@@ -5,7 +5,6 @@ ObjectId = Schema.ObjectId;
 const bannerSchema = new Schema({
     highlight: String,
     description : String,
-    product_link: String,
     image: [
         {
             url: String,

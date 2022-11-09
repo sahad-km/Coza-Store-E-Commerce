@@ -9,7 +9,7 @@ const sessionCheck = (req, res, next) => {
 
 const loginSession = (req,res,next) => {
     if(req.session.userId){
-        res.redirect('/pages/home');
+        res.redirect('/');
     }else{
         next();
     }
@@ -35,7 +35,9 @@ const blocked = async (req,res,next) =>{
     const user = await User.find({userId});
     if(user.blockStatus){
     req.session.destroy();
-    res.redirect('/pages/home');
+    res.redirect('/');
+    }else{
+        next();
     }
 }
 

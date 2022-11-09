@@ -62,7 +62,11 @@ app.use((req,res,next)=>{
   res.locals.success = req.flash('success')
   res.locals.error = req.flash('error')
   next();
-})
+});
+app.use(function(req, res, next) {
+  res.locals.user = req.session.userId;
+  next();
+});
 
 app.use('/admin',adminPages);
 app.use('/users',users);
