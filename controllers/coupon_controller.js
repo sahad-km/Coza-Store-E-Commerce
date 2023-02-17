@@ -47,10 +47,8 @@ const deleteCoupon = async(req,res) => {
 const applyCoupon = async(req,res) => {
    try{
         const usercode = req.body.code
-        console.log(req.body.code)
         const code = await CouponData.find({code: usercode})
         if(code){
-            console.log(3);
             const userId = req.session.userId
             await Checkout.findOneAndUpdate({userId},{couponCode:usercode})
             const discount = code[0].discount    

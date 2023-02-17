@@ -6,14 +6,10 @@ const Wishlist = require('../models/wishlistSchema');
 const addToCartView = async (req, res) => {
     try{
     const proId = req.params.id;
-    console.log(proId)
     let variant = req.body.variant;
-    console.log(variant)
     let productId = new mongoose.Types.ObjectId(proId);
     let userId = req.session.userId;
-    console.log(userId)
     const cart = await Cart.findOne({userId: userId });
-    console.log(cart);
     if (cart) {
         //cart exists for user
         let productExist = await Cart.findOne({ $and: [{ userId }, { cartItems: { $elemMatch: { productId , variant } } }] });
@@ -80,13 +76,9 @@ const displayCart = async (req, res) => {
 
 const changeProductQt = async (req,res) =>{
     const cart = new mongoose.Types.ObjectId(req.body.cart);
-    console.log(cart)
     const product = new mongoose.Types.ObjectId(req.body.product);
-    console.log(product)
     const variant = req.body.variant;
-    console.log(variant)
     const count = parseInt(req.body.count);
-    console.log(count);
     await Cart.findOneAndUpdate({ $and: [{_id:cart }, { "cartItems.productId": product }, {"cartItems.variant": variant}] },{ $inc: { "cartItems.$.quantity": count }});
 }
 

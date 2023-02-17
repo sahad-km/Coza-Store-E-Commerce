@@ -8,11 +8,8 @@ const addToWishlist = async (req,res) => {
     try{
     let variant = req.body.variant;
     const proId = req.params.id;
-    console.log('pro id'+proId)
     let productId = new mongoose.Types.ObjectId(proId);
-    console.log('productId'+productId)
     let userId = req.session.userId;
-    console.log(userId)
     const wishlist_exist = await Wishlist.findOne({ userId });
     if (wishlist_exist) {
         //wishlist exists for user
@@ -36,7 +33,6 @@ const addToWishlist = async (req,res) => {
             await wishlist.save();
             res.redirect('/users/viewwishlist');
         } catch (err) {
-            console.log('6')
             const msg = 'Wishlist adding failed';
             res.send({ msg });
         }

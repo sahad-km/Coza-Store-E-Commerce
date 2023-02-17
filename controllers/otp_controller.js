@@ -52,15 +52,12 @@ const sendOTPVerificationEmail = async(req,res) => {
 
 
 const otpVerify = async (req,res)=> {
-    console.log(1)
     const email = req.body.email;
     const otp = req.body.otp;
     const user = await otpVerification.findOne({ email });
     if (user) {
-        console.log(2)
         const validOtp = await bcrypt.compare(otp, user.otp);
         if (validOtp) {
-            console.log(3)
             await otpVerification.deleteMany({email})
             res.send({verify:true});
         }

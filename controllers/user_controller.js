@@ -14,7 +14,6 @@ const insertDetails = async (req,res) => {
         if(exist_user) {
             res.render('register',{title:'Create Account',msg:'User already exist'});
         }else {
-            console.log(req.body);
             const {name,email,mobNumber,password,userType} = req.body;
             const hashedPassword = await bcrypt.hash(password,10);
         const user = new User({
@@ -25,7 +24,6 @@ const insertDetails = async (req,res) => {
             userType
         });
         await user.save();
-        console.log('here now...');
         res.render('login',{title:'login',msg:'Account created, Please login',errmsg:''});
     }
 }
@@ -120,7 +118,6 @@ const orderHistory = async(req,res)=>{
             }
         },
     ])
-        // console.log(productDetails)
     res.render('order_history',{cartCount,wishlistCount,brands,orderHistory,productDetails})
 }
 
@@ -131,21 +128,6 @@ const changeStatus = async (req,res) =>{
     await Checkout.findOneAndUpdate({ $and: [{_id: orderId }, { "orderStatus._id": orderStatusId }] },{ $set: { "orderStatus.$.type": 'cancelled' }});
     res.redirect('/admin/vieworders')
 }
-
-
-// const orderedProducts = async (req, res) => {
-//     try {
-//         const carId = req.params
-//         const cartId = mongoose.Types.ObjectId(carId)
-//         const cartList = await Checkout.aggregate([{ $match: { _id: cartId } }, { $unwind: '$cartItems' },
-//         { $project: { item: '$cartItems.productId', itemQuantity: '$cartItems.quantity', variant: '$cartItems.variant' } },
-//         { $lookup: { from: process.env.PRODUCT_COLLECTION, localField: 'item', foreignField: '_id', as: 'product' } }]);
-//         console.log(cartList)
-//         res.render('ordered_product', { cartList })
-//     } catch (err) {
-//         console.log(err)
-//     }
-// }
 
 
 const orderedProducts = async(req,res)=>{
