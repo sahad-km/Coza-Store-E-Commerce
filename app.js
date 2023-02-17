@@ -8,8 +8,6 @@ const mongoose = require('mongoose');
 const methodOverride = require('method-override');
 const path = require('path')
 const bodyParser = require('body-parser')
-const jsonParser = bodyParser.json()
-const urlencodedParser = bodyParser.urlencoded({ extended: false })
 const flash = require('connect-flash');
 
 app.use(flash());
@@ -17,7 +15,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.json());
 
-const dbConnect = 'mongodb://localhost:27017/E-Commerce';
+const dbConnect = process.env.MONGO_URL;
 mongoose.connect(dbConnect);
 
 app.set('view engine','ejs');
