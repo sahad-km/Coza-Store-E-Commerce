@@ -9,8 +9,8 @@ const User = require('../models/userSchema');
 
 
 let instance = new Razorpay({
-  key_id:'rzp_test_y5gvtRY9ZcI4Xg',
-  key_secret:'6JbOr7pwWgHnEwX5VhHBN5En',
+  key_id:process.env.KEY_ID,
+  key_secret:process.env.KEY_SECRET,
 });
 
 

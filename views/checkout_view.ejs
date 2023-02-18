@@ -466,7 +466,7 @@
             function razorPayment(payDetails, userDetails, orderId) {
 
                 let options = {
-                    "key": 'rzp_test_y5gvtRY9ZcI4Xg',
+                    "key": process.env.KEY_ID,
                     "amount": payDetails.amount,
                     "currency": "INR",
                     "name": "COZA Store",
