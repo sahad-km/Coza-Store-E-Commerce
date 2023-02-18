@@ -40,8 +40,9 @@ const placeOrder = async (req, res) => {
     const mobile = user.mobNumber
     const email = user.email
     const inserId = checkout._id;
+    let money = parseInt(req.body.totalAmount)*100
     const options = {
-      amount: 1000, // amount in the smallest currency unit
+      amount:money, // amount in the smallest currency unit
       currency: "INR",
       receipt: "" + inserId
     };

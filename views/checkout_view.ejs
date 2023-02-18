@@ -356,7 +356,6 @@
 
         <script>
             function coupon() {
-                console.log('Hi 1')
                 const usercode = document.getElementById('usercode').value
                 let disc = document.getElementById('discount').innerHTML;
                 if(usercode.length>0){
@@ -367,7 +366,6 @@
                     },
                     method: 'post',
                     success:(response)=>{
-                        console.log('hi last')
                         discount = response.success
                         console.log(discount)
                         console.log(parseInt(document.getElementsByClassName('grandtotal').innerHTML));
@@ -376,13 +374,10 @@
                             total= total+40;
                         }
                         if (parseInt(total) > 20000) {
-                            console.log("inside 1")
                             if (parseInt(document.getElementById('discount').innerHTML) > 0) {
-                                console.log("inside 2");
                                 document.getElementById('coupondiv').style.display = 'none';
                                 alert('You already used a Coupon');
                             } else {
-                                console.log("inside 2");
                                 document.getElementById('discount').innerHTML = discount
                                 document.getElementById('grandtotal').innerHTML = parseInt(document.getElementById('grandtotal').innerHTML) - parseInt(discount)
                                 document.getElementById('coupondiv').style.display = 'none';
@@ -391,37 +386,6 @@
                     }
                 })
             }
-
-
-
-
-
-
-
-                // fetch('/users/applyCoupon/' + usercode, {
-                //     method: 'post',
-                //     headers: {
-                //         'Content-type': 'application/json',
-                //         body: JSON.stringify({ jfd: disc })
-                //     }
-
-                // })
-                //     .then(res => res.json())
-                //     .then(data => {
-                //         console.log('hi last')
-                //         discount = data.success
-                //         console.log(discount)
-
-                //         if (parseInt(document.getElementById('grandtotal').innerHTML) > 20000) {
-                //             if (parseInt(document.getElementById('discount').innerHTML) > 0) {
-                //                 document.getElementById('couponbtn').disabled = true;
-                //             } else {
-                //                 document.getElementById('discount').innerHTML = discount
-                //                 document.getElementById('grandtotal').innerHTML = parseInt(document.getElementById('grandtotal').innerHTML) - parseInt(discount)
-                //                 console.log(document.getElementById('grandtotal').innerHTML)
-                //             }
-                //         }
-                //     })
             }
         </script>
 
@@ -466,7 +430,7 @@
             function razorPayment(payDetails, userDetails, orderId) {
 
                 let options = {
-                    "key": process.env.KEY_ID,
+                    "key": "rzp_test_0GF9icr4JffF2Y",
                     "amount": payDetails.amount,
                     "currency": "INR",
                     "name": "COZA Store",

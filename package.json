@@ -20,13 +20,14 @@
     "multer-storage-cloudinary": "^4.0.0",
     "node-fetch": "^3.2.10",
     "nodemailer": "^6.8.0",
+    "nodemon": "^2.0.20",
     "razorpay": "^2.8.3"
   },
   "name": "miniproject",
   "version": "1.0.0",
   "main": "app.js",
   "scripts": {
-    "start": "node app.js"
+    "start": "nodemon app.js"
   },
   "author": "",
   "license": "ISC",
